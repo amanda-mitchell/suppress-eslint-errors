@@ -24,7 +24,7 @@ try {
 	process.exit(1);
 }
 
-const jscodeshiftPath = require.resolve('../node_modules/.bin/jscodeshift');
+const jscodeshiftPath = require.resolve('jscodeshift/bin/jscodeshift');
 const transformPath = require.resolve('../transforms/suppress-eslint-errors');
 
 const gitignoreArguments = [];
