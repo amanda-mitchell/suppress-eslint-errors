@@ -1,0 +1,38 @@
+{
+  "name": "suppress-eslint-errors",
+  "version": "1.0.0",
+  "repository": {
+    "url": "https://github.com/Faithlife/suppress-eslint-errors"
+  },
+  "author": "David Mitchell <dave@fallingcanbedeadly.com>",
+  "license": "MIT",
+  "description": "A codemod that suppresses existing violations of eslint rules.",
+  "engines": {
+    "node": ">= 10.12.0"
+  },
+  "bin": {
+    "suppress-eslint-errors": "./bin/index.js"
+  },
+  "files": [
+    "bin/index.js",
+    "transforms/*.js"
+  ],
+  "scripts": {
+    "suppress-eslint-errors": "node bin/index.js",
+    "lint": "eslint bin transforms",
+    "test": "jest"
+  },
+  "dependencies": {
+    "chalk": "^2.4.2",
+    "cross-spawn": "^6.0.5",
+    "jscodeshift": "^0.6.3",
+    "please-upgrade-node": "^3.1.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.14.1",
+    "eslint-config-faithlife": "^4.8.0",
+    "jest": "^24.1.0",
+    "prettier": "^1.16.4",
+    "typescript": "^3.3.3"
+  }
+}
