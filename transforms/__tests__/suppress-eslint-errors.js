@@ -133,6 +133,22 @@ test('supports alternative messages in jsx', () => {
 }`);
 });
 
+test('supports rule whitelist in javascript', () => {
+	const program = `export function foo(a, b) {
+  return a == b;
+  console.log('unreachable');
+}
+`;
+
+	expect(modifySource(program, { rules: 'no-unreachable' })).toBe(`export function foo(a, b) {
+  return a == b;
+  // TODO: Fix this the next time the file is edited.
+  // eslint-disable-next-line no-unreachable
+  console.log('unreachable');
+}
+`);
+});
+
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
 function modifySource(source, options) {
 	return codeMod(

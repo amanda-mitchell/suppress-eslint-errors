@@ -37,7 +37,23 @@ Be sure to re-run any code formatting tools you use before committing!
 
 ## Options
 
-If you'd like a message other than, `TODO: Fix this the next time the file is edited.`, you can specify this with the `--message` commandline flag.
+**--message**: Sets the comment to add above eslint-disable-next-line comments.
+
+**--rules**: Comma-separated list of ESLint rule IDs to disable. When specified, violations of rules not in this set will be left in place.
+
+## Examples
+
+Suppress all rule violations in the `index.js` file, using a custom comment:
+
+```bash
+npx suppress-eslint-errors ./index.js --message="TODO: Issue #123"
+```
+
+Suppress violations of the `eqeqeq` and `@typescript-eslint/no-explicit-any` rules in .ts and .tsx files in the `src` directory:
+
+```bash
+npx suppress-eslint-errors ./src --extensions=ts,tsx --parser=tsx --rules=eqeqeq,@typescript-eslint/no-explicit-any
+```
 
 ## Is it perfect?
 
