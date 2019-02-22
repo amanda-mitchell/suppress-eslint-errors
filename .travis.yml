@@ -5,5 +5,6 @@ language: node_js
 script:
   - yarn lint
   - yarn test
+  - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then yarn semantic-release; fi'
 node_js:
   - 'lts/*'
