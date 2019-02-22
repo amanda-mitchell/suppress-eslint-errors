@@ -1,6 +1,7 @@
 # suppress-eslint-errors
 
-Have you ever tried to turn on a new eslint rule only to be discouraged by hundreds or thousands of violations in an existing codebase? So have we.
+Have you ever tried to turn on a new eslint rule only to be discouraged by hundreds or thousands of violations in an existing codebase?
+So have we.
 
 Sometimes, there isn't a great business case for updating all of the existing (working!) code, especially in a larger, legacy codebase.
 For those times, `suppress-eslint-errors` has you covered.
