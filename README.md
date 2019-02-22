@@ -35,6 +35,10 @@ If it can't find one, it will bail out early.
 In some cases, the code produced by this codemod will make some unfortunate indentation decisions.
 Be sure to re-run any code formatting tools you use before committing!
 
+## Options
+
+If you'd like a message other than, `TODO: Fix this the next time the file is edited.`, you can specify this with the `--message` commandline flag.
+
 ## Is it perfect?
 
 Definitely not. PRs are welcome for any edge cases that you encounter.
