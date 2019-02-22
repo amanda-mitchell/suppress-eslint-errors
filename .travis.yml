@@ -1,0 +1,9 @@
+cache:
+  directories:
+    - node_modules
+language: node_js
+script:
+  - yarn lint
+  - yarn test
+node_js:
+  - 'lts/*'
