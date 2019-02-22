@@ -77,6 +77,11 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 	}
 
 	if (targetPath.parent && targetPath.parent.node.type.substr(0, 3) === 'JSX') {
+		if (!targetPath.parent.value.children) {
+			api.report(`Skipping suppression of violation of ${ruleId} on ${targetLine} of ${filePath}`);
+			return;
+		}
+
 		let siblingIndex = targetPath.parent.value.children.indexOf(targetPath.value) - 1;
 
 		while (siblingIndex >= 0) {

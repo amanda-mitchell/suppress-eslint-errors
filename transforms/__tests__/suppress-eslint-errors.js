@@ -97,6 +97,21 @@ test("doesn't crash on unusual markup", () => {
 	expect(modifySource(program)).toBe(program);
 });
 
+// This is a somewhat more common case that crashed when I first encountered it.
+// Unfortunately, it's not legal to put comments between props, so fixing this one
+// will be rather tricky.
+test("doesn't crash on violations in multiline props", () => {
+	const program = `export function Component({ a, b }) {
+    return (
+      <div
+        prop={a == b ? a : b}>
+      </div>
+    );
+  }`;
+
+	expect(modifySource(program)).toBe(program);
+});
+
 test('supports alternative messages in javascript', () => {
 	const program = `export function foo(a, b) {
   return a == b;
