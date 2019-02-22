@@ -7,4 +7,7 @@ script:
   - yarn test
   - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ] && [ "$TRAVIS_BRANCH" = "master" ]; then yarn semantic-release; fi'
 node_js:
-  - 'lts/*'
+  - lts/*
+env:
+  global:
+    secure: C7YpW2riA/JwseV2/D/LBOipyFAiKy+BeocUk6TIUnVaxoH63ybYW0GUepMmyQ4k7GekveDAo5vzJS5E9osRy2ejv8dpc8cTubIDfukRbyKZ6zq7CMb+nV69pfnMGAXoz4WiOE+CNGdCd2zO33Ie/+QOtJIgTQaHd0AIhn63Glgc7bAL8b1JoLcJnb7n7Nop9/GGq+HhDABqZNQJHCqxNm6loB9IkS+RP5oK4EsryPoqlYlYM0Rc7waZZIcgBGs71e5Cg70z6si7Qsu7kaN+aSztFvErYo3dQ9sWDtanYAf++gMc5IzaxWC8fzu82VLJInr1FfwhRs64pPIA7K0petYWTKgFHmv1NoS/3TYDsni0swOjAQ25Wq3BZtWedAc22zonZzS9KZbUTtvwDuctIdWFfpZAqua5hJa+4ZOT1AfPhKdHo6A2eb42j97l/7mfVvS46WsxZdHcGCj+1TewP6FZ3UTTr+3Ia8Avd44DA/iH4//b9bPzc9zz+3vFr4qM4YaEHTkE5W0xEJeF651eTv4r3dpDubzubzs3QhnPZuyS8kAzdvd3COya2DudRcoErWm8tGNUBiPM2ocIFpF63b20CquMsnkgPH0XKgfpv9B+F5dCNnYLFxnpcw7rQBfd4SOi1abzbGEUrJ8AH985ctu06kk9hr3gbtD4AAZTrrc=
