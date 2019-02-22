@@ -31,7 +31,14 @@ module.exports = function codeMod(file, api, options) {
 			? options.message
 			: 'TODO: Fix this the next time the file is edited.';
 
+	const ruleIdWhitelist = (options.rules || '').split(',').filter(x => x);
+	const ruleIdWhitelistSet = ruleIdWhitelist.length ? new Set(ruleIdWhitelist) : null;
+
 	for (const { targetLine, ruleId } of targets) {
+		if (ruleIdWhitelistSet && !ruleIdWhitelistSet.has(ruleId)) {
+			continue;
+		}
+
 		const firstPathOnLine = result
 			.find(
 				'Node',
