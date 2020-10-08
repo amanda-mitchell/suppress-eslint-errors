@@ -1,3 +1,6 @@
 {
-  "extends": "faithlife/base"
+  "extends": "faithlife/base",
+  "rules": {
+    "import/prefer-default-export": "error"
+  }
 }

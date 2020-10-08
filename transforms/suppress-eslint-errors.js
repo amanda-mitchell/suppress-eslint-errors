@@ -65,8 +65,7 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 	let targetPath = path;
 	while (
 		targetPath.parent &&
-		targetPath.parent.node.loc &&
-		targetPath.parent.node.loc.start.line === targetLine
+		(targetPath.parent.node.loc === null || targetPath.parent.node.loc.start.line === targetLine)
 	) {
 		targetPath = targetPath.parent;
 	}
