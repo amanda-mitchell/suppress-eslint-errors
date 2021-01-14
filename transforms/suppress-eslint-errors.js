@@ -1,7 +1,7 @@
-const { createRequireFromPath } = require('module');
+const { createRequire } = require('module');
 const path = require('path');
 
-const workingDirectoryRequire = createRequireFromPath(path.resolve(process.cwd(), 'index.js'));
+const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index.js'));
 const eslint = workingDirectoryRequire('eslint');
 
 const cliEngine = new eslint.CLIEngine();
