@@ -7,12 +7,12 @@ const pkg = require('../package.json');
 require('please-upgrade-node')(pkg);
 
 const fs = require('fs');
-const { createRequireFromPath } = require('module');
+const { createRequire } = require('module');
 const path = require('path');
 const chalk = require('chalk');
 const spawn = require('cross-spawn');
 
-const workingDirectoryRequire = createRequireFromPath(path.resolve(process.cwd(), 'index.js'));
+const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index.js'));
 
 try {
 	workingDirectoryRequire('eslint');
