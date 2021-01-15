@@ -1,5 +1,7 @@
 {
 	"rules": {
-		"prettier/prettier": "off"
+		"prettier/prettier": "off",
+		"consistent-return": "error",
+		"semi": "warn"
 	}
 }
