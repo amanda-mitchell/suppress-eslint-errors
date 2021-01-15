@@ -28,8 +28,23 @@ const jscodeshiftPath = require.resolve('jscodeshift/bin/jscodeshift');
 const transformPath = require.resolve('../transforms/suppress-eslint-errors');
 
 const gitignoreArguments = [];
-if (fs.existsSync(path.resolve(process.cwd(), '.gitignore'))) {
-	gitignoreArguments.push(`--ignore-config=.gitignore`);
+const gitignorePath = path.resolve(process.cwd(), '.gitignore');
+if (fs.existsSync(gitignorePath)) {
+	if (
+		fs
+			.readFileSync(gitignorePath, { encoding: 'utf8' })
+			.split('\n')
+			.findIndex((line) => line.startsWith('!')) !== -1
+	) {
+		console.warn(
+			chalk.yellow(
+				'your .gitignore contains exclusions, which jscodeshift does not properly support.'
+			)
+		);
+		console.warn(chalk.yellow('skipping the ignore-config option.'));
+	} else {
+		gitignoreArguments.push(`--ignore-config=.gitignore`);
+	}
 }
 
 const result = spawn.sync(
