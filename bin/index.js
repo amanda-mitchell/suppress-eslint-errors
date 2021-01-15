@@ -49,7 +49,9 @@ if (fs.existsSync(gitignorePath)) {
 
 const result = spawn.sync(
 	'node',
-	[jscodeshiftPath, '-t', transformPath].concat(gitignoreArguments).concat(process.argv.slice(2)),
+	[jscodeshiftPath, '--no-babel', '-t', transformPath]
+		.concat(gitignoreArguments)
+		.concat(process.argv.slice(2)),
 	{
 		stdio: 'inherit',
 	}
