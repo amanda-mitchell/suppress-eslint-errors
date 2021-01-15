@@ -180,6 +180,30 @@ test('supports adding comments to JSX attributes', () => {
   }`);
 });
 
+test('supports adding comments to JSX attributes containing markup', () => {
+	const program = `export function Component({ a, b }) {
+    return (
+      <div
+        prop={
+          <div prop={a == b ? a : b} />
+        }>
+      </div>
+    );
+  }`;
+
+	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
+    return (
+      <div
+        prop={
+          // TODO: Fix this the next time the file is edited.
+          // eslint-disable-next-line eqeqeq
+          <div prop={a == b ? a : b} />
+        }>
+      </div>
+    );
+  }`);
+});
+
 test('supports alternative messages in javascript', () => {
 	const program = `export function foo(a, b) {
   return a == b;

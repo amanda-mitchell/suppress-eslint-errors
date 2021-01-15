@@ -90,6 +90,12 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 		return;
 	}
 
+	if (targetPath.parent && targetPath.parent.node.type === 'JSXExpressionContainer') {
+		createNormalComment(api, ruleId, commentText, targetPath.value);
+
+		return;
+	}
+
 	if (targetPath.parent && targetPath.parent.node.type.substr(0, 3) === 'JSX') {
 		if (!targetPath.parent.value.children) {
 			api.report(`Skipping suppression of violation of ${ruleId} on ${targetLine} of ${filePath}`);
