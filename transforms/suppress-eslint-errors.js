@@ -15,10 +15,12 @@ module.exports = function codeMod(file, api, options) {
 		return;
 	}
 
-	const targets = results[0].messages.map(({ ruleId, line }) => ({
-		ruleId,
-		targetLine: line,
-	}));
+	const targets = results[0].messages
+		.filter(({ severity }) => severity >= 2)
+		.map(({ ruleId, line }) => ({
+			ruleId,
+			targetLine: line,
+		}));
 
 	if (!targets.length) {
 		return;

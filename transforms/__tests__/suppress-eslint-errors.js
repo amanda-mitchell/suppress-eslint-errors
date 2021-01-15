@@ -257,7 +257,7 @@ test('supports rule whitelist in javascript', () => {
 });
 
 test('supports errors on multiline return statements', () => {
-	const program = `function fn(a, b) {
+	const program = `export function fn(a, b) {
   if (a) {
     return;
   }
@@ -269,7 +269,7 @@ test('supports errors on multiline return statements', () => {
   }
 }`;
 
-	expect(modifySource(program, { rules: 'consistent-return' })).toBe(`function fn(a, b) {
+	expect(modifySource(program, { rules: 'consistent-return' })).toBe(`export function fn(a, b) {
   if (a) {
     return;
   }
@@ -282,6 +282,14 @@ test('supports errors on multiline return statements', () => {
     };
   }
 }`);
+});
+
+test('skips eslint warnings', () => {
+	const program = `export function fn(a) {
+  a()
+}`;
+
+	expect(modifySource(program)).toBe(undefined);
 });
 
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
