@@ -31,7 +31,7 @@ module.exports = function codeMod(file, api, options) {
 			? options.message
 			: 'TODO: Fix this the next time the file is edited.';
 
-	const ruleIdWhitelist = (options.rules || '').split(',').filter(x => x);
+	const ruleIdWhitelist = (options.rules || '').split(',').filter((x) => x);
 	const ruleIdWhitelistSet = ruleIdWhitelist.length ? new Set(ruleIdWhitelist) : null;
 
 	for (const { targetLine, ruleId } of targets) {
@@ -42,15 +42,13 @@ module.exports = function codeMod(file, api, options) {
 		const firstPathOnLine = result
 			.find(
 				'Node',
-				node => node.loc && node.loc.start.line === targetLine && node.loc.end.line === targetLine
+				(node) => node.loc && node.loc.start.line === targetLine && node.loc.end.line === targetLine
 			)
 			.paths()[0];
 
 		if (!firstPathOnLine) {
 			api.report(
-				`Unable to find any nodes on line ${targetLine} of ${
-					file.path
-				}. Skipping suppression of ${ruleId}`
+				`Unable to find any nodes on line ${targetLine} of ${file.path}. Skipping suppression of ${ruleId}`
 			);
 			continue;
 		}
@@ -166,7 +164,7 @@ function tryRewriteEslintDisable(targetNode, ruleId) {
 
 	const [ruleDetails, ...explanationParts] = match[2].split('--');
 
-	const disabledRules = ruleDetails.split(',').map(x => x.trim());
+	const disabledRules = ruleDetails.split(',').map((x) => x.trim());
 	if (!disabledRules.length || disabledRules.includes(ruleId)) {
 		return true;
 	}

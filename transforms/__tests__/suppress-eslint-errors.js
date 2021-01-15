@@ -39,11 +39,11 @@ test('inserts a new comment in jsx', () => {
 
 	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
   return (
-    <div>
+    (<div>
       {/* TODO: Fix this the next time the file is edited. */}
       {/* eslint-disable-next-line eqeqeq */}
       <div>{a == b}</div>
-    </div>
+    </div>)
   );
 }`);
 });
@@ -51,13 +51,13 @@ test('inserts a new comment in jsx', () => {
 test('updates an existing comment in javascript', () => {
 	const program = `export function foo(a, b) {
   // eslint-disable-next-line eqeqeq
-  var bar = a == b;
+  const bar = a == b;
 }
 `;
 
 	expect(modifySource(program)).toBe(`export function foo(a, b) {
   // eslint-disable-next-line eqeqeq, no-unused-vars
-  var bar = a == b;
+  const bar = a == b;
 }
 `);
 });
@@ -65,13 +65,13 @@ test('updates an existing comment in javascript', () => {
 test('updates an existing comment with an explanation in javascript', () => {
 	const program = `export function foo(a, b) {
   // eslint-disable-next-line eqeqeq -- for reasons
-  var bar = a == b;
+  const bar = a == b;
 }
 `;
 
 	expect(modifySource(program)).toBe(`export function foo(a, b) {
   // eslint-disable-next-line eqeqeq, no-unused-vars -- for reasons
-  var bar = a == b;
+  const bar = a == b;
 }
 `);
 });
@@ -207,11 +207,11 @@ test('supports alternative messages in jsx', () => {
 	expect(modifySource(program, { message: 'Something more informative' }))
 		.toBe(`export function Component({ a, b }) {
   return (
-    <div>
+    (<div>
       {/* Something more informative */}
       {/* eslint-disable-next-line eqeqeq */}
       <div>{a == b}</div>
-    </div>
+    </div>)
   );
 }`);
 });
