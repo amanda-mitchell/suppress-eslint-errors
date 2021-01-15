@@ -72,7 +72,17 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 	}
 
 	if (targetPath.node.type === 'JSXClosingElement') {
-		api.report(`Skipping suppression of violation of ${ruleId} on ${targetLine} of ${filePath}`);
+		const { children } = targetPath.parent.value;
+
+		if (tryRewriteJsxEslintDisable(children, children.length, ruleId)) {
+			return;
+		}
+
+		children.push(createJsxComment(api, commentText));
+		children.push(api.j.jsxText('\n'));
+		children.push(createJsxComment(api, `eslint-disable-next-line ${ruleId}`));
+		children.push(api.j.jsxText('\n'));
+
 		return;
 	}
 
@@ -88,23 +98,9 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 			return;
 		}
 
-		let siblingIndex = targetPath.parent.value.children.indexOf(targetPath.value) - 1;
-
-		while (siblingIndex >= 0) {
-			const sibling = targetPath.parent.value.children[siblingIndex];
-			if (sibling.type === 'JSXText') {
-				siblingIndex--;
-			} else {
-				if (
-					sibling.type === 'JSXExpressionContainer' &&
-					sibling.expression.type === 'JSXEmptyExpression' &&
-					tryRewriteEslintDisable(sibling.expression, ruleId)
-				) {
-					return;
-				}
-
-				break;
-			}
+		const { children } = targetPath.parent.value;
+		if (tryRewriteJsxEslintDisable(children, children.indexOf(targetPath.value), ruleId)) {
+			return;
 		}
 
 		targetPath.insertBefore(createJsxComment(api, commentText));
@@ -131,6 +127,29 @@ function createNormalComment(api, ruleId, commentText, targetNode) {
 		api.j.line(` ${commentText}`),
 		api.j.line(` eslint-disable-next-line ${ruleId}`)
 	);
+}
+
+function tryRewriteJsxEslintDisable(children, targetIndex, ruleId) {
+	let currentIndex = targetIndex - 1;
+
+	while (currentIndex >= 0) {
+		const sibling = children[currentIndex];
+		if (sibling.type === 'JSXText') {
+			currentIndex--;
+		} else {
+			if (
+				sibling.type === 'JSXExpressionContainer' &&
+				sibling.expression.type === 'JSXEmptyExpression' &&
+				tryRewriteEslintDisable(sibling.expression, ruleId)
+			) {
+				return true;
+			}
+
+			return false;
+		}
+	}
+
+	return false;
 }
 
 function tryRewriteEslintDisable(targetNode, ruleId) {

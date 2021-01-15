@@ -116,9 +116,7 @@ test('updates an existing comment with an explanation in jsx', () => {
 }`);
 });
 
-// I discovered this edge case in testing, and it's sufficiently rare that I don't feel like
-// *actually* handling it properly now; however, it should at least not crash.
-test("doesn't crash on unusual markup", () => {
+test('inserts comments above a closing tag', () => {
 	const program = `export function Component({ a, b }) {
   return (
     <div>
@@ -128,7 +126,38 @@ test("doesn't crash on unusual markup", () => {
   );
 }`;
 
-	expect(modifySource(program)).toBe(program);
+	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
+  return (
+    <div>
+      <div>
+        {/* TODO: Fix this the next time the file is edited. */}
+        {/* eslint-disable-next-line eqeqeq */}
+      </div>{a == b}
+    </div>
+  );
+}`);
+});
+
+test('updates comments above a closing tag', () => {
+	const program = `export function Component({ a }) {
+  return (
+    <div>
+      <div>
+        {/* eslint-disable-next-line eqeqeq */}
+      </div>{a == c}
+    </div>
+  );
+}`;
+
+	expect(modifySource(program)).toBe(`export function Component({ a }) {
+  return (
+    <div>
+      <div>
+        {/* eslint-disable-next-line eqeqeq, no-undef */}
+      </div>{a == c}
+    </div>
+  );
+}`);
 });
 
 test('supports adding comments to JSX attributes', () => {
