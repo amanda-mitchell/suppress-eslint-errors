@@ -62,6 +62,20 @@ test('updates an existing comment in javascript', () => {
 `);
 });
 
+test('updates an existing comment with an explanation in javascript', () => {
+	const program = `export function foo(a, b) {
+  // eslint-disable-next-line eqeqeq -- for reasons
+  var bar = a == b;
+}
+`;
+
+	expect(modifySource(program)).toBe(`export function foo(a, b) {
+  // eslint-disable-next-line eqeqeq, no-unused-vars -- for reasons
+  var bar = a == b;
+}
+`);
+});
+
 test('updates an existing comment in jsx', () => {
 	const program = `export function Component({ a }) {
   return (
@@ -76,6 +90,26 @@ test('updates an existing comment in jsx', () => {
   return (
     <div>
       {/* eslint-disable-next-line eqeqeq, no-undef */}
+      <div>{a == c}</div>
+    </div>
+  );
+}`);
+});
+
+test('updates an existing comment with an explanation in jsx', () => {
+	const program = `export function Component({ a }) {
+  return (
+    <div>
+      {/* eslint-disable-next-line eqeqeq -- for reasons */}
+      <div>{a == c}</div>
+    </div>
+  );
+}`;
+
+	expect(modifySource(program)).toBe(`export function Component({ a }) {
+  return (
+    <div>
+      {/* eslint-disable-next-line eqeqeq, no-undef -- for reasons */}
       <div>{a == c}</div>
     </div>
   );

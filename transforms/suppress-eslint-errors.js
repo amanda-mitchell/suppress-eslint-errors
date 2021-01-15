@@ -139,17 +139,27 @@ function tryRewriteEslintDisable(targetNode, ruleId) {
 	}
 
 	const lastComment = targetNode.comments[targetNode.comments.length - 1];
+
 	const match = eslintDisableRegexp.exec(lastComment.value);
 	if (!match) {
 		return false;
 	}
 
-	const disabledRules = match[2].split(',').map(x => x.trim());
+	const [ruleDetails, ...explanationParts] = match[2].split('--');
+
+	const disabledRules = ruleDetails.split(',').map(x => x.trim());
 	if (!disabledRules.length || disabledRules.includes(ruleId)) {
-		return false;
+		return true;
 	}
 
-	lastComment.value = ` ${lastComment.value.trim()}, ${ruleId}`;
+	const explanationSuffix = explanationParts.length
+		? ` -- ${explanationParts.join('--').trim()}`
+		: '';
+
+	lastComment.value = ` eslint-disable-next-line ${disabledRules.join(
+		', '
+	)}, ${ruleId}${explanationSuffix}`;
+
 	if (lastComment.type === 'CommentBlock') {
 		lastComment.value += ' ';
 	}
