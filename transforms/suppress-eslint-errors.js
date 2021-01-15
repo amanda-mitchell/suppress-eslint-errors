@@ -76,6 +76,12 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 		return;
 	}
 
+	if (targetPath.node.type === 'JSXAttribute') {
+		createNormalComment(api, ruleId, commentText, targetPath.value);
+
+		return;
+	}
+
 	if (targetPath.parent && targetPath.parent.node.type.substr(0, 3) === 'JSX') {
 		if (!targetPath.parent.value.children) {
 			api.report(`Skipping suppression of violation of ${ruleId} on ${targetLine} of ${filePath}`);
@@ -92,21 +98,9 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 				if (
 					sibling.type === 'JSXExpressionContainer' &&
 					sibling.expression.type === 'JSXEmptyExpression' &&
-					sibling.expression.comments &&
-					sibling.expression.comments.length
+					tryRewriteEslintDisable(sibling.expression, ruleId)
 				) {
-					const lastComment = sibling.expression.comments[sibling.expression.comments.length - 1];
-
-					const match = eslintDisableRegexp.exec(lastComment.value);
-					if (match) {
-						const disabledRules = match[2].split(',').map(x => x.trim());
-						if (!disabledRules.length || disabledRules.includes(ruleId)) {
-							return;
-						}
-
-						lastComment.value = ` ${lastComment.value.trim()}, ${ruleId} `;
-						return;
-					}
+					return;
 				}
 
 				break;
@@ -117,32 +111,50 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 		targetPath.insertBefore(api.j.jsxText('\n'));
 		targetPath.insertBefore(createJsxComment(api, `eslint-disable-next-line ${ruleId}`));
 		targetPath.insertBefore(api.j.jsxText('\n'));
-	} else {
-		const targetNode = targetPath.value;
-		if (!targetNode.comments) {
-			targetNode.comments = [];
-		}
 
-		if (targetNode.comments.length) {
-			const lastComment = targetNode.comments[targetNode.comments.length - 1];
-
-			const match = eslintDisableRegexp.exec(lastComment.value);
-			if (match) {
-				const disabledRules = match[2].split(',').map(x => x.trim());
-				if (!disabledRules.length || disabledRules.includes(ruleId)) {
-					return;
-				}
-
-				lastComment.value = ` ${lastComment.value.trim()}, ${ruleId}`;
-				return;
-			}
-		}
-
-		targetNode.comments.push(
-			api.j.line(` ${commentText}`),
-			api.j.line(` eslint-disable-next-line ${ruleId}`)
-		);
+		return;
 	}
+
+	createNormalComment(api, ruleId, commentText, targetPath.value);
+}
+
+function createNormalComment(api, ruleId, commentText, targetNode) {
+	if (tryRewriteEslintDisable(targetNode, ruleId)) {
+		return;
+	}
+
+	if (!targetNode.comments) {
+		targetNode.comments = [];
+	}
+
+	targetNode.comments.push(
+		api.j.line(` ${commentText}`),
+		api.j.line(` eslint-disable-next-line ${ruleId}`)
+	);
+}
+
+function tryRewriteEslintDisable(targetNode, ruleId) {
+	if (!targetNode.comments || !targetNode.comments.length) {
+		return false;
+	}
+
+	const lastComment = targetNode.comments[targetNode.comments.length - 1];
+	const match = eslintDisableRegexp.exec(lastComment.value);
+	if (!match) {
+		return false;
+	}
+
+	const disabledRules = match[2].split(',').map(x => x.trim());
+	if (!disabledRules.length || disabledRules.includes(ruleId)) {
+		return false;
+	}
+
+	lastComment.value = ` ${lastComment.value.trim()}, ${ruleId}`;
+	if (lastComment.type === 'CommentBlock') {
+		lastComment.value += ' ';
+	}
+
+	return true;
 }
 
 // Using the builder methods to generate a jsx comment expression

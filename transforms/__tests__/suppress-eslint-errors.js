@@ -97,10 +97,7 @@ test("doesn't crash on unusual markup", () => {
 	expect(modifySource(program)).toBe(program);
 });
 
-// This is a somewhat more common case that crashed when I first encountered it.
-// Unfortunately, it's not legal to put comments between props, so fixing this one
-// will be rather tricky.
-test("doesn't crash on violations in multiline props", () => {
+test('supports adding comments to JSX attributes', () => {
 	const program = `export function Component({ a, b }) {
     return (
       <div
@@ -109,7 +106,15 @@ test("doesn't crash on violations in multiline props", () => {
     );
   }`;
 
-	expect(modifySource(program)).toBe(program);
+	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
+    return (
+      <div
+        // TODO: Fix this the next time the file is edited.
+        // eslint-disable-next-line eqeqeq
+        prop={a == b ? a : b}>
+      </div>
+    );
+  }`);
 });
 
 test('supports alternative messages in javascript', () => {
