@@ -39,17 +39,19 @@ module.exports = function codeMod(file, api, options) {
 			continue;
 		}
 
-		const firstPathOnLine = result
-			.find(
-				'Node',
-				(node) => node.loc && node.loc.start.line === targetLine && node.loc.end.line === targetLine
-			)
-			.paths()[0];
+		const pathsStartingOnLine = result
+			.find('Node', (node) => node.loc && node.loc.start.line === targetLine)
+			.paths();
+
+		const firstPathOnLine =
+			pathsStartingOnLine.find((path) => path.node.loc.end.line === targetLine) ||
+			pathsStartingOnLine[0];
 
 		if (!firstPathOnLine) {
 			api.report(
 				`Unable to find any nodes on line ${targetLine} of ${file.path}. Skipping suppression of ${ruleId}`
 			);
+
 			continue;
 		}
 

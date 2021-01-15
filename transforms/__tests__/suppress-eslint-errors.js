@@ -256,6 +256,34 @@ test('supports rule whitelist in javascript', () => {
 `);
 });
 
+test('supports errors on multiline return statements', () => {
+	const program = `function fn(a, b) {
+  if (a) {
+    return;
+  }
+
+  if (b) {
+    return {
+      b
+    };
+  }
+}`;
+
+	expect(modifySource(program, { rules: 'consistent-return' })).toBe(`function fn(a, b) {
+  if (a) {
+    return;
+  }
+
+  if (b) {
+    // TODO: Fix this the next time the file is edited.
+    // eslint-disable-next-line consistent-return
+    return {
+      b
+    };
+  }
+}`);
+});
+
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
 function modifySource(source, options) {
 	return codeMod(
