@@ -1,0 +1,30 @@
+name: Build PR
+on: pull_request
+jobs:
+  lint:
+    name: Build
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v1
+      - name: Setup Node.js
+        uses: actions/setup-node@v1
+        with:
+          node-version: 12
+      - name: Install dependencies
+        run: yarn --frozen-lockfile --ignore-scripts
+      - name: Prettier check
+        run: yarn prettier --check "./**/*.{js,md}"
+      - name: Lint
+        run: yarn eslint "./**/*.js"
+      - name: Test
+        run: yarn jest
+      - name: Merge
+        if: ${{ github.event.pull_request.user.login == 'dependabot-preview[bot]' }}
+        run: |
+          curl --request PUT \
+          --url ${{ github.event.pull_request.url }}/merge \
+          -H 'Authorization: Bearer ${{ secrets.PRIVATE_PACKAGE_TOKEN }}' \
+          -H 'Accept: application/vnd.github.v3+json' \
+          -H 'Content-Type: application/json' \
+          --data '{"merge_method": "rebase"}'

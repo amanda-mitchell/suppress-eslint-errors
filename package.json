@@ -19,12 +19,10 @@
     "transforms/*.js"
   ],
   "scripts": {
-    "suppress-eslint-errors": "node bin/index.js",
-    "lint": "eslint bin transforms",
-    "test": "jest"
+    "suppress-eslint-errors": "node bin/index.js"
   },
-  "release": {
-    "branch": "master"
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {
     "chalk": "^4.1.0",
