@@ -2,7 +2,6 @@
 
 // This must be performed before anything else in order for
 // please-upgrade-node to work properly.
-// eslint-disable-next-line import/order
 const pkg = require('../package.json');
 require('please-upgrade-node')(pkg);
 

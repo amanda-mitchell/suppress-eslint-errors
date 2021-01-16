@@ -1,4 +1,3 @@
-/* globals test, expect */
 const path = require('path');
 const jscodeshift = require('jscodeshift');
 const codeMod = require('../suppress-eslint-errors');
