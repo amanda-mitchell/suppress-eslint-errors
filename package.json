@@ -3,9 +3,9 @@
   "version": "0.9.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Faithlife/suppress-eslint-errors"
+    "url": "https://github.com/amanda-mitchell/suppress-eslint-errors"
   },
-  "author": "David Mitchell <dave@fallingcanbedeadly.com>",
+  "author": "Amanda Mitchell <she@mandymitchell.me>",
   "license": "MIT",
   "description": "A codemod that suppresses existing violations of eslint rules.",
   "engines": {
