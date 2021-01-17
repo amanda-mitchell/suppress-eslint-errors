@@ -1,6 +1,6 @@
 # suppress-eslint-errors
 
-![Node.js CI](https://github.com/amanda-mitchell/suppress-eslint-errors/workflows/Node.js%20CI/badge.svg)
+![Release](https://github.com/amanda-mitchell/suppress-eslint-errors/workflows/Release/badge.svg)
 
 Have you ever tried to turn on a new eslint rule only to be discouraged by hundreds or thousands of violations in an existing codebase?
 So have we.
