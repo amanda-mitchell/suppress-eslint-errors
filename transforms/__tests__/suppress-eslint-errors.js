@@ -18,11 +18,11 @@ test('inserts a new comment in javascript', () => {
 
 test("doesn't update unnecessarily", () => {
 	const program = `export function foo(a, b) {
-		// TODO: Fix this the next time the file is edited.
-		// eslint-disable-next-line eqeqeq
-		return a == b;
-	}
-	`;
+  // TODO: Fix this the next time the file is edited.
+  // eslint-disable-next-line eqeqeq
+  return a == b;
+}
+`;
 
 	expect(modifySource(program)).toBe(undefined);
 });
@@ -293,7 +293,7 @@ test('skips eslint warnings', () => {
 
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
 function modifySource(source, options) {
-	return codeMod(
+	const result = codeMod(
 		{
 			source,
 			path: defaultPath,
@@ -301,4 +301,6 @@ function modifySource(source, options) {
 		{ jscodeshift, j: jscodeshift, report: console.log },
 		options || {}
 	);
+
+	return result ? result.replace(/\r\n/g, '\n') : result;
 }
