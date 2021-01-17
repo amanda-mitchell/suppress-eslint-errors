@@ -297,15 +297,38 @@ test('skips files that eslint cannot parse', () => {
 	expect(modifySource(program)).toBe(undefined);
 });
 
+test('comments named export with correct syntax', () => {
+	const program = `export const Component = (a, b) => {
+  return a === b;
+}`;
+
+	const baseConfig = { plugins: ['import'], rules: { 'import/prefer-default-export': 'error' } };
+
+	expect(
+		modifySource(program, {
+			baseConfig,
+		})
+	).toBe(`// TODO: Fix this the next time the file is edited.
+// eslint-disable-next-line import/prefer-default-export
+export const Component = (a, b) => {
+  return a === b;
+}`);
+});
+
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
 function modifySource(source, options) {
+	const transformOptions = { ...options };
+	if (transformOptions.baseConfig) {
+		transformOptions.baseConfig = JSON.stringify(transformOptions.baseConfig);
+	}
+
 	const result = codeMod(
 		{
 			source,
 			path: defaultPath,
 		},
 		{ jscodeshift, j: jscodeshift, report: console.log },
-		options || {}
+		transformOptions
 	);
 
 	return result ? result.replace(/\r\n/g, '\n') : result;

@@ -2,14 +2,14 @@ const { createRequire } = require('module');
 const path = require('path');
 
 const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index.js'));
-const eslint = workingDirectoryRequire('eslint');
-
-const cliEngine = new eslint.CLIEngine();
+const { CLIEngine } = workingDirectoryRequire('eslint');
 
 const eslintDisableRegexp = /^\s*eslint-disable-next-line(\s|$)(.*)/;
 
 module.exports = function codeMod(file, api, options) {
-	const results = cliEngine.executeOnText(file.source, file.path).results;
+	const { results } = new CLIEngine({
+		baseConfig: options.baseConfig ? JSON.parse(options.baseConfig) : null,
+	}).executeOnText(file.source, file.path);
 
 	if (!results || !results[0] || !results[0].messages) {
 		return;
@@ -67,8 +67,7 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 	let targetPath = path;
 	while (
 		targetPath.parent &&
-		targetPath.parent.node.loc &&
-		targetPath.parent.node.loc.start.line === targetLine
+		(!targetPath.parent.node.loc || targetPath.parent.node.loc.start.line === targetLine)
 	) {
 		targetPath = targetPath.parent;
 	}
