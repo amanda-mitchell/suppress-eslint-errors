@@ -291,6 +291,12 @@ test('skips eslint warnings', () => {
 	expect(modifySource(program)).toBe(undefined);
 });
 
+test('skips files that eslint cannot parse', () => {
+	const program = `not actually javascript`;
+
+	expect(modifySource(program)).toBe(undefined);
+});
+
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
 function modifySource(source, options) {
 	const result = codeMod(

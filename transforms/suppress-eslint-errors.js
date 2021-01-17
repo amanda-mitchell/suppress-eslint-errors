@@ -16,7 +16,7 @@ module.exports = function codeMod(file, api, options) {
 	}
 
 	const targets = results[0].messages
-		.filter(({ severity }) => severity >= 2)
+		.filter(({ ruleId, severity }) => ruleId && severity >= 2)
 		.map(({ ruleId, line }) => ({
 			ruleId,
 			targetLine: line,
