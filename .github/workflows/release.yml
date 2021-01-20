@@ -29,8 +29,6 @@ jobs:
         env:
           DEPENDABOT_TOKEN: ${{ secrets.PRIVATE_PACKAGE_TOKEN }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_NPM_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITHUB_NPM_CONFIG_REGISTRY: https://npm.pkg.github.com/
-          PUBLIC_NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
-          PUBLIC_NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          NPM_CONFIG_REGISTRY: https://registry.npmjs.org/
         run: yarn semantic-release
