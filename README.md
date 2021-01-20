@@ -34,6 +34,9 @@ If it detects a `.gitignore` in the local directory, it will also specify that a
 `suppress-eslint-errors` must be used with a locally installed copy of `eslint`.
 If it can't find one, it will bail out early.
 
+*NOTE:* `jscodeshift` has some bugs with respect to how it handles `.gitignore` files that sometimes causes it to ignore all files.
+If this tool detects that your `.gitignore` contains problematic patterns, the `--ignore-config` option will be skipped.
+
 In some cases, the code produced by this codemod will make some unfortunate indentation decisions.
 Be sure to re-run any code formatting tools you use before committing!
 
