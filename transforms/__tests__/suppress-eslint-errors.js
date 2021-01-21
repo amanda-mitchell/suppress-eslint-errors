@@ -315,6 +315,70 @@ export const Component = (a, b) => {
 }`);
 });
 
+test('does not split JSX lines containing multiple nodes', () => {
+	const program = `export function Component({ a, b }) {
+  return (
+    <div>
+      Some text <span>{a == b}</span>.
+    </div>
+  );
+}`;
+
+	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
+  return (
+    (<div>
+      {/* TODO: Fix this the next time the file is edited. */}
+      {/* eslint-disable-next-line eqeqeq */}
+      Some text <span>{a == b}</span>.
+    </div>)
+  );
+}`);
+});
+
+test('handles trailing text on the previous line', () => {
+	const program = `export function Component({ a, b }) {
+  return (
+    <div>
+      <div />Some text
+      <span>{a == b}</span>.
+    </div>
+  );
+}`;
+
+	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
+  return (
+    (<div>
+      <div />Some text
+      {/* TODO: Fix this the next time the file is edited. */}
+      {/* eslint-disable-next-line eqeqeq */}
+      <span>{a == b}</span>.
+    </div>)
+  );
+}`);
+});
+
+test('preserves significant whitespace in jsx text nodes', () => {
+	const program = `export function Component({ a, b }) {
+  return (
+    <div>
+      Some text <span>next to a span</span>
+      <span onClick={() => a == b}>hi</span>.
+    </div>
+  );
+}`;
+
+	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
+  return (
+    (<div>
+      Some text <span>next to a span</span>
+      {/* TODO: Fix this the next time the file is edited. */}
+      {/* eslint-disable-next-line eqeqeq */}
+      <span onClick={() => a == b}>hi</span>.
+    </div>)
+  );
+}`);
+});
+
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
 function modifySource(source, options) {
 	const transformOptions = { ...options };

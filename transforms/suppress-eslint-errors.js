@@ -106,14 +106,82 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 		}
 
 		const { children } = targetPath.parent.value;
-		if (tryRewriteJsxEslintDisable(children, children.indexOf(targetPath.value), ruleId)) {
+
+		// jscodeshift has some bugs around how it handles JSXText nodes that can cause
+		// it to swallow significant whitespace. Creating whitespace only nodes appears to
+		// solve the issue.
+		for (let siblingIndex = children.length - 1; siblingIndex >= 0; siblingIndex--) {
+			const sibling = children[siblingIndex];
+			if (sibling.type !== 'JSXText') {
+				continue;
+			}
+
+			if (sibling.value[0] === '\n' && sibling.value.trim().length === 0) {
+				continue;
+			}
+
+			const segments = sibling.value.split('\n').flatMap((line) => {
+				const trimmedLine = line.trimEnd();
+				if (trimmedLine.length === 0) {
+					return ['\n'];
+				}
+				if (trimmedLine.length === line.length) {
+					return [line, '\n'];
+				}
+
+				return [trimmedLine, line.substr(trimmedLine.length), '\n'];
+			});
+
+			segments.pop();
+
+			children.splice(siblingIndex, 1, ...segments.map((segment) => api.j.jsxText(segment)));
+		}
+
+		let targetIndex = children.indexOf(targetPath.value);
+		for (let siblingIndex = targetIndex - 1; siblingIndex >= 0; siblingIndex--) {
+			const sibling = children[siblingIndex];
+			if (sibling.type === 'JSXText') {
+				if (sibling.value.indexOf('\n') !== -1) {
+					break;
+				}
+
+				targetIndex = siblingIndex;
+			} else if (sibling.loc) {
+				if (sibling.loc.start.line !== targetLine) {
+					break;
+				}
+
+				targetIndex = siblingIndex;
+			}
+		}
+
+		if (tryRewriteJsxEslintDisable(children, targetIndex, ruleId)) {
 			return;
 		}
 
-		targetPath.insertBefore(createJsxComment(api, commentText));
-		targetPath.insertBefore(api.j.jsxText('\n'));
-		targetPath.insertBefore(createJsxComment(api, `eslint-disable-next-line ${ruleId}`));
-		targetPath.insertBefore(api.j.jsxText('\n'));
+		const previousSibling = children[targetIndex - 1];
+
+		if (previousSibling && previousSibling.type === 'JSXText') {
+			const textValue = previousSibling.value;
+			const lastNewline = textValue.lastIndexOf('\n');
+			if (
+				lastNewline !== textValue.length - 1 &&
+				textValue.substr(lastNewline + 1).trim().length === 0
+			) {
+				previousSibling.value = textValue.substr(0, lastNewline);
+				children.splice(targetIndex, 0, api.j.jsxText(textValue.substr(lastNewline)));
+				targetIndex++;
+			}
+		}
+
+		children.splice(
+			targetIndex,
+			0,
+			createJsxComment(api, commentText),
+			api.j.jsxText('\n'),
+			createJsxComment(api, `eslint-disable-next-line ${ruleId}`),
+			api.j.jsxText('\n')
+		);
 
 		return;
 	}
@@ -141,7 +209,7 @@ function tryRewriteJsxEslintDisable(children, targetIndex, ruleId) {
 
 	while (currentIndex >= 0) {
 		const sibling = children[currentIndex];
-		if (sibling.type === 'JSXText') {
+		if (sibling.type === 'JSXText' && sibling.value.trim().length === 0) {
 			currentIndex--;
 		} else {
 			if (
@@ -199,6 +267,10 @@ function tryRewriteEslintDisable(targetNode, ruleId) {
 function createJsxComment(api, text) {
 	// The <element> around the curly braces causes this to be parsed as a JSXExpressionContainer
 	// instead of as a BlockExpression.
-	return api.j(`<element>{/* ${text} */}</element>`).paths()[0].value.program.body[0].expression
-		.children[0];
+	const expressionContainer = api.j(`<element>{/* a comment */}</element>`).paths()[0].value.program
+		.body[0].expression.children[0];
+
+	expressionContainer.expression.innerComments[0].value = ` ${text} `;
+
+	return expressionContainer;
 }
