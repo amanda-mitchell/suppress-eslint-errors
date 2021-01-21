@@ -357,7 +357,7 @@ test('handles trailing text on the previous line', () => {
 }`);
 });
 
-test('preserves significant whitespace in jsx text nodes', () => {
+test('preserves significant trailing whitespace in jsx text nodes', () => {
 	const program = `export function Component({ a, b }) {
   return (
     <div>
@@ -371,6 +371,28 @@ test('preserves significant whitespace in jsx text nodes', () => {
   return (
     (<div>
       Some text <span>next to a span</span>
+      {/* TODO: Fix this the next time the file is edited. */}
+      {/* eslint-disable-next-line eqeqeq */}
+      <span onClick={() => a == b}>hi</span>.
+    </div>)
+  );
+}`);
+});
+
+test('preserves significant leading whitespace in jsx text nodes', () => {
+	const program = `export function Component({ a, b }) {
+  return (
+    <div>
+      <span>A span</span> next to some text
+      <span onClick={() => a == b}>hi</span>.
+    </div>
+  );
+}`;
+
+	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
+  return (
+    (<div>
+      <span>A span</span> next to some text
       {/* TODO: Fix this the next time the file is edited. */}
       {/* eslint-disable-next-line eqeqeq */}
       <span onClick={() => a == b}>hi</span>.

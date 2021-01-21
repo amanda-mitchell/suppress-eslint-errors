@@ -120,19 +120,42 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 				continue;
 			}
 
-			const segments = sibling.value.split('\n').flatMap((line) => {
+			const lines = sibling.value.split('\n');
+			const segments = lines.flatMap((line, lineIndex) => {
+				const result = [];
+
 				const trimmedLine = line.trimEnd();
-				if (trimmedLine.length === 0) {
-					return ['\n'];
-				}
-				if (trimmedLine.length === line.length) {
-					return [line, '\n'];
+				if (trimmedLine.length !== 0) {
+					if (lineIndex === 0) {
+						const startTrimmedLine = trimmedLine.trimStart();
+						if (startTrimmedLine.length === line.length) {
+							result.push(line);
+						} else {
+							if (startTrimmedLine.length < trimmedLine.length) {
+								result.push(trimmedLine.substr(0, trimmedLine.length - startTrimmedLine.length));
+							}
+
+							result.push(startTrimmedLine);
+
+							if (trimmedLine.length < line.length) {
+								result.push(line.substr(trimmedLine.length));
+							}
+						}
+					} else {
+						if (trimmedLine.length === line.length) {
+							result.push(line);
+						} else {
+							result.push(trimmedLine, line.substr(trimmedLine.length));
+						}
+					}
 				}
 
-				return [trimmedLine, line.substr(trimmedLine.length), '\n'];
+				if (lineIndex != lines.length - 1) {
+					result.push('\n');
+				}
+
+				return result;
 			});
-
-			segments.pop();
 
 			children.splice(siblingIndex, 1, ...segments.map((segment) => api.j.jsxText(segment)));
 		}
