@@ -401,6 +401,99 @@ test('preserves significant leading whitespace in jsx text nodes', () => {
 }`);
 });
 
+test('does not split if from preceding else', () => {
+	const program = `export function foo(a, b) {
+  if (a === b) {
+    return a;
+  } else if (a == b) {
+    return b;
+  }
+
+  return null;
+}`;
+
+	expect(modifySource(program)).toBe(`export function foo(a, b) {
+  if (a === b) {
+    return a;
+    // TODO: Fix this the next time the file is edited.
+    // eslint-disable-next-line eqeqeq
+  } else if (a == b) {
+    return b;
+  }
+
+  return null;
+}`);
+});
+
+test('correctly modifies comments in else if conditions', () => {
+	const program = `export function foo(a, b) {
+  if (a === b) {
+    return a;
+    // eslint-disable-next-line eqeqeq
+  } else if (a == c) {
+    return b;
+  }
+
+  return null;
+}`;
+
+	expect(modifySource(program)).toBe(`export function foo(a, b) {
+  if (a === b) {
+    return a;
+    // eslint-disable-next-line eqeqeq, no-undef
+  } else if (a == c) {
+    return b;
+  }
+
+  return null;
+}`);
+});
+
+test('correctly handles empty blocks with multiple violations in else if conditions', () => {
+	const program = `export function foo(a, b) {
+  if (a === b) {
+  } else if (a == c) {
+    return b;
+  }
+
+  return null;
+}`;
+
+	expect(modifySource(program, { rules: 'eqeqeq,no-undef' })).toBe(`export function foo(a, b) {
+  if (a === b) {
+
+    // TODO: Fix this the next time the file is edited.
+    // eslint-disable-next-line eqeqeq, no-undef
+  } else if (a == c) {
+    return b;
+  }
+
+  return null;
+}`);
+});
+
+test('correctly modifies empty blocks with violations in else if conditions', () => {
+	const program = `export function foo(a, b) {
+  if (a === b) {
+    // eslint-disable-next-line eqeqeq
+  } else if (a == c) {
+    return b;
+  }
+
+  return null;
+}`;
+
+	expect(modifySource(program, { rules: 'eqeqeq,no-undef' })).toBe(`export function foo(a, b) {
+  if (a === b) {
+    // eslint-disable-next-line eqeqeq, no-undef
+  } else if (a == c) {
+    return b;
+  }
+
+  return null;
+}`);
+});
+
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js');
 function modifySource(source, options) {
 	const transformOptions = { ...options };

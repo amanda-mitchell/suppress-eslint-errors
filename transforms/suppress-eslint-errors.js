@@ -72,6 +72,50 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 		targetPath = targetPath.parent;
 	}
 
+	if (
+		targetPath.parent &&
+		targetPath.parent.value.type === 'IfStatement' &&
+		targetPath.parent.value.alternate === targetPath.value &&
+		targetPath.parent.value.consequent.type === 'BlockStatement'
+	) {
+		const ifStatement = targetPath.parent.value;
+
+		const { consequent } = ifStatement;
+		const consequentBody = consequent.body;
+
+		if (consequentBody.length === 0) {
+			if (tryRewriteEslintDisable(consequent.innerComments, ruleId)) {
+				return;
+			}
+
+			consequentBody.push(api.j.noop());
+		}
+
+		const lastStatement = consequentBody[consequentBody.length - 1];
+
+		if (tryRewriteEslintDisable(lastStatement.trailingComments, ruleId)) {
+			return;
+		}
+
+		if (!lastStatement.comments) {
+			lastStatement.comments = [];
+		}
+
+		if (!lastStatement.trailingComments) {
+			lastStatement.trailingComments = [];
+		}
+
+		const newComments = [
+			createTrailingComment(api, ` ${commentText}`),
+			createTrailingComment(api, ` eslint-disable-next-line ${ruleId}`),
+		];
+
+		lastStatement.comments.push(...newComments);
+		lastStatement.trailingComments.push(...newComments);
+
+		return;
+	}
+
 	if (targetPath.node.type === 'JSXClosingElement') {
 		const { children } = targetPath.parent.value;
 
@@ -213,7 +257,7 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 }
 
 function createNormalComment(api, ruleId, commentText, targetNode) {
-	if (tryRewriteEslintDisable(targetNode, ruleId)) {
+	if (tryRewriteEslintDisable(targetNode.leadingComments, ruleId)) {
 		return;
 	}
 
@@ -221,10 +265,17 @@ function createNormalComment(api, ruleId, commentText, targetNode) {
 		targetNode.comments = [];
 	}
 
-	targetNode.comments.push(
+	if (!targetNode.leadingComments) {
+		targetNode.leadingComments = [];
+	}
+
+	const newComments = [
 		api.j.line(` ${commentText}`),
-		api.j.line(` eslint-disable-next-line ${ruleId}`)
-	);
+		api.j.line(` eslint-disable-next-line ${ruleId}`),
+	];
+
+	targetNode.comments.push(...newComments);
+	targetNode.leadingComments.push(...newComments);
 }
 
 function tryRewriteJsxEslintDisable(children, targetIndex, ruleId) {
@@ -238,7 +289,7 @@ function tryRewriteJsxEslintDisable(children, targetIndex, ruleId) {
 			if (
 				sibling.type === 'JSXExpressionContainer' &&
 				sibling.expression.type === 'JSXEmptyExpression' &&
-				tryRewriteEslintDisable(sibling.expression, ruleId)
+				tryRewriteEslintDisable(sibling.expression.comments, ruleId)
 			) {
 				return true;
 			}
@@ -250,12 +301,12 @@ function tryRewriteJsxEslintDisable(children, targetIndex, ruleId) {
 	return false;
 }
 
-function tryRewriteEslintDisable(targetNode, ruleId) {
-	if (!targetNode.comments || !targetNode.comments.length) {
+function tryRewriteEslintDisable(comments, ruleId) {
+	if (!comments || !comments.length) {
 		return false;
 	}
 
-	const lastComment = targetNode.comments[targetNode.comments.length - 1];
+	const lastComment = comments[comments.length - 1];
 
 	const match = eslintDisableRegexp.exec(lastComment.value);
 	if (!match) {
@@ -296,4 +347,21 @@ function createJsxComment(api, text) {
 	expressionContainer.expression.innerComments[0].value = ` ${text} `;
 
 	return expressionContainer;
+}
+
+// Using the builder methods to generate trailing comments results
+// in comments without preceding newlines. However, parsing a small
+// module containing a trailing comment with a preceding newline will
+// generate a node with the necessary properties.
+function createTrailingComment(api, text) {
+	const comment = api
+		.j(
+			`statement();
+// trailing comment`
+		)
+		.paths()[0].value.program.body[0].comments[0];
+
+	comment.value = text;
+
+	return comment;
 }
