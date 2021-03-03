@@ -12,7 +12,7 @@ module.exports = function codeMod(file, api, options) {
 	}).executeOnText(file.source, file.path);
 
 	if (!results || !results[0] || !results[0].messages) {
-		return;
+		return file.source;
 	}
 
 	const targets = results[0].messages
@@ -23,7 +23,7 @@ module.exports = function codeMod(file, api, options) {
 		}));
 
 	if (!targets.length) {
-		return;
+		return file.source;
 	}
 
 	const result = api.j(file.source);
