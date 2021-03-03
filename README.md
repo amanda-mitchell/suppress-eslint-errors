@@ -62,7 +62,8 @@ npx suppress-eslint-errors ./src --extensions=ts,tsx --parser=tsx --rules=eqeqeq
 
 ## Gotcha's
 
-- It's in the name, but it only modifies files that have eslint errors, so if you have rules marked to give you a warning instead, you need to change them to error first, and then run the script to supress them.
+- It's in the name, but it only modifies files that have eslint errors, so if you have rules marked to give you a warning instead, 
+  you need to change them to error first, and then run the script to supress them.
 
 ## Is it perfect?
 
