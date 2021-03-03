@@ -2,7 +2,7 @@
 
 ![Release](https://github.com/amanda-mitchell/suppress-eslint-errors/workflows/Release/badge.svg)
 
-Have you ever tried to turn on a new eslint rule only to be discouraged by hundreds or thousands of violations in an existing codebase?
+Have you ever tried to turn on a new eslint rule only to be discouraged by hundreds or thousands of errors in an existing codebase?
 So have we.
 
 Sometimes, there isn't a great business case for updating all of the existing (working!) code, especially in a larger, legacy codebase.
@@ -11,7 +11,7 @@ For those times, `suppress-eslint-errors` has you covered.
 ## How it works
 
 `suppress-eslint-errors` is a codemod for [jscodeshift](https://github.com/facebook/jscodeshift) that runs eslint against your existing code.
-For each violation it finds, it adds a little snippet:
+For each eslint error it finds, it adds a little snippet:
 
 ```javascript
 // TODO: Fix this the next time the file is edited.
@@ -48,7 +48,7 @@ Be sure to re-run any code formatting tools you use before committing!
 
 ## Examples
 
-Suppress all rule violations in the `index.js` file, using a custom comment:
+Suppress all errors in the `index.js` file, using a custom comment:
 
 ```bash
 npx suppress-eslint-errors ./index.js --message="TODO: Issue #123"
@@ -59,6 +59,11 @@ Suppress violations of the `eqeqeq` and `@typescript-eslint/no-explicit-any` rul
 ```bash
 npx suppress-eslint-errors ./src --extensions=ts,tsx --parser=tsx --rules=eqeqeq,@typescript-eslint/no-explicit-any
 ```
+
+## Nuances
+
+Like the name of the tool says, this only suppresses eslint _errors_.
+If you have warnings that you'd like to suppress, change your eslint config to turn them into errors before running the tool or specify the rules using the `--rules` flag.
 
 ## Is it perfect?
 
