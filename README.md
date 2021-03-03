@@ -11,7 +11,7 @@ For those times, `suppress-eslint-errors` has you covered.
 ## How it works
 
 `suppress-eslint-errors` is a codemod for [jscodeshift](https://github.com/facebook/jscodeshift) that runs eslint against your existing code.
-For each violation it finds, it adds a little snippet:
+For each violation (*eslint error*) it finds, it adds a little snippet:
 
 ```javascript
 // TODO: Fix this the next time the file is edited.
@@ -59,6 +59,10 @@ Suppress violations of the `eqeqeq` and `@typescript-eslint/no-explicit-any` rul
 ```bash
 npx suppress-eslint-errors ./src --extensions=ts,tsx --parser=tsx --rules=eqeqeq,@typescript-eslint/no-explicit-any
 ```
+
+## Gotcha's
+
+- It's in the name, but it only modifies files that have eslint errors, so if you have rules marked to give you a warning instead, you need to change them to error first, and then run the script to supress them.
 
 ## Is it perfect?
 
