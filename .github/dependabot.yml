@@ -1,0 +1,32 @@
+version: 2
+registries:
+  npm-registry-npm-pkg-github-com:
+    type: npm-registry
+    url: https://npm.pkg.github.com
+    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_TOKEN}}"
+
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: daily
+    time: "13:00"
+  pull-request-branch-name:
+    separator: "-"
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@amanda-mitchell/node-project-scripts"
+    versions:
+    - 2.101.0
+    - 2.102.0
+    - 2.42.0
+    - 2.68.0
+    - 2.69.0
+    - 2.74.0
+    - 2.88.0
+    - 2.94.0
+  commit-message:
+    prefix: chore
+    include: scope
+  registries:
+  - npm-registry-npm-pkg-github-com
