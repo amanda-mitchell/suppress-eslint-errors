@@ -3,7 +3,7 @@ registries:
   npm-registry-npm-pkg-github-com:
     type: npm-registry
     url: https://npm.pkg.github.com
-    token: "${{secrets.NPM_REGISTRY_NPM_PKG_GITHUB_COM_TOKEN}}"
+    token: "${{secrets.PRIVATE_PACKAGE_TOKEN}}"
 
 updates:
 - package-ecosystem: npm
