@@ -23,7 +23,7 @@ jobs:
         if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
         run: |
           curl --request PUT \
-          --url ${{ github.event.pull_request.url }}/merge \
+          --fail --url ${{ github.event.pull_request.url }}/merge \
           -H 'Authorization: Bearer ${{ secrets.PRIVATE_PACKAGE_TOKEN }}' \
           -H 'Accept: application/vnd.github.v3+json' \
           -H 'Content-Type: application/json' \
