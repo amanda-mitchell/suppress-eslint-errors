@@ -19,12 +19,3 @@ jobs:
         run: yarn eslint "./**/*.js"
       - name: Test
         run: yarn jest
-      - name: Merge
-        if: ${{ github.event.pull_request.user.login == 'dependabot[bot]' }}
-        run: |
-          curl --request PUT \
-          --fail --url ${{ github.event.pull_request.url }}/merge \
-          -H 'Authorization: Bearer ${{ secrets.PRIVATE_PACKAGE_TOKEN }}' \
-          -H 'Accept: application/vnd.github.v3+json' \
-          -H 'Content-Type: application/json' \
-          --data '{"merge_method": "rebase"}'
