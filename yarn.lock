@@ -3,14 +3,14 @@
 
 
 "@amanda-mitchell/node-project-scripts@^2.33.1":
-  version "2.111.0"
-  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-2.111.0.tgz#d50f05620aa9fdc917ce338baab0262729ec71aa"
-  integrity sha512-d/OC71ZmSvPgkPHDOn+RPea7FmMYT+rTyjbnqp/VBV3ai0l90pgwq6vWxGJCqHky3czAJNWALDtvKi9AUQanfw==
+  version "2.114.0"
+  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-2.114.0.tgz#e0c91c8984c96a2d4d952d0f22523bde675103aa"
+  integrity sha512-TRNFMqpFEwIFPxy42KtGLUJ51/FMAoHLcUDO0DFI8KWrnEQ6jg9x65L5/KCgFZq0jEKrrwIAiIwqYFLkPzr2mA==
   dependencies:
     "@amanda-mitchell/semantic-release-notify-dependabot" "^1.0.0"
     "@amanda-mitchell/semantic-release-npm-multiple" "^2.1.1"
     "@commitlint/cli" "^13.1.0"
-    "@commitlint/config-conventional" "^12.0.0"
+    "@commitlint/config-conventional" "^13.1.0"
     "@tsconfig/node12" "^1.0.7"
     "@types/jest" "^26.0.20"
     "@typescript-eslint/eslint-plugin" "^4.14.0"
@@ -758,10 +758,10 @@
     resolve-global "1.0.0"
     yargs "^17.0.0"
 
-"@commitlint/config-conventional@^12.0.0":
-  version "12.0.0"
-  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-12.0.0.tgz#3244957b87b92dc2f4feb46059cdeb950783198f"
-  integrity sha512-zjTeCBlHEP0syW6QedRSxOiafYeuOol9vIXZ89uhKMhyejaKxdAnS3SBMN4fYiSFChsZEl+VshJeZDtUFkCd7Q==
+"@commitlint/config-conventional@^13.1.0":
+  version "13.1.0"
+  resolved "https://registry.yarnpkg.com/@commitlint/config-conventional/-/config-conventional-13.1.0.tgz#f02871d50c73db0a31b777231f49203b964d9d59"
+  integrity sha512-zukJXqdr6jtMiVRy3tTHmwgKcUMGfqKDEskRigc5W3k2aYF4gBAtCEjMAJGZgSQE4DMcHeok0pEV2ANmTpb0cw==
   dependencies:
     conventional-changelog-conventionalcommits "^4.3.1"
 
