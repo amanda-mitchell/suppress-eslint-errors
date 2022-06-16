@@ -1,1 +1,1 @@
-module.exports = require('@amanda-mitchell/node-project-scripts/commitlint.config');
+module.exports = require('@amanda-mitchell/node-project-scripts/commitlint.config.cjs');
