@@ -9,8 +9,7 @@ test('inserts a new comment in javascript', () => {
 `;
 
 	expect(modifySource(program)).toBe(`export function foo(a, b) {
-  // TODO: Fix this the next time the file is edited.
-  // eslint-disable-next-line eqeqeq
+  // eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited.
   return a == b;
 }
 `);
@@ -18,8 +17,7 @@ test('inserts a new comment in javascript', () => {
 
 test("doesn't update unnecessarily", () => {
 	const program = `export function foo(a, b) {
-  // TODO: Fix this the next time the file is edited.
-  // eslint-disable-next-line eqeqeq
+  // eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited.
   return a == b;
 }
 `;
@@ -39,8 +37,7 @@ test('inserts a new comment in jsx', () => {
 	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
   return (
     (<div>
-      {/* TODO: Fix this the next time the file is edited. */}
-      {/* eslint-disable-next-line eqeqeq */}
+      {/* eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited. */}
       <div>{a == b}</div>
     </div>)
   );
@@ -129,8 +126,7 @@ test('inserts comments above a closing tag', () => {
   return (
     <div>
       <div>
-        {/* TODO: Fix this the next time the file is edited. */}
-        {/* eslint-disable-next-line eqeqeq */}
+        {/* eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited. */}
       </div>{a == b}
     </div>
   );
@@ -171,8 +167,7 @@ test('supports adding comments to JSX attributes', () => {
 	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
     return (
       <div
-        // TODO: Fix this the next time the file is edited.
-        // eslint-disable-next-line eqeqeq
+        // eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited.
         prop={a == b ? a : b}>
       </div>
     );
@@ -194,8 +189,7 @@ test('supports adding comments to JSX attributes containing markup', () => {
     return (
       <div
         prop={
-          // TODO: Fix this the next time the file is edited.
-          // eslint-disable-next-line eqeqeq
+          // eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited.
           <div prop={a == b ? a : b} />
         }>
       </div>
@@ -211,8 +205,7 @@ test('supports alternative messages in javascript', () => {
 
 	expect(modifySource(program, { message: 'Something more informative' }))
 		.toBe(`export function foo(a, b) {
-  // Something more informative
-  // eslint-disable-next-line eqeqeq
+  // eslint-disable-next-line eqeqeq -- Something more informative
   return a == b;
 }
 `);
@@ -231,8 +224,7 @@ test('supports alternative messages in jsx', () => {
 		.toBe(`export function Component({ a, b }) {
   return (
     (<div>
-      {/* Something more informative */}
-      {/* eslint-disable-next-line eqeqeq */}
+      {/* eslint-disable-next-line eqeqeq -- Something more informative */}
       <div>{a == b}</div>
     </div>)
   );
@@ -248,8 +240,7 @@ test('supports rule whitelist in javascript', () => {
 
 	expect(modifySource(program, { rules: 'no-unreachable' })).toBe(`export function foo(a, b) {
   return a == b;
-  // TODO: Fix this the next time the file is edited.
-  // eslint-disable-next-line no-unreachable
+  // eslint-disable-next-line no-unreachable -- TODO: Fix this the next time the file is edited.
   console.log('unreachable');
 }
 `);
@@ -274,8 +265,7 @@ test('supports errors on multiline return statements', () => {
   }
 
   if (b) {
-    // TODO: Fix this the next time the file is edited.
-    // eslint-disable-next-line consistent-return
+    // eslint-disable-next-line consistent-return -- TODO: Fix this the next time the file is edited.
     return {
       b
     };
@@ -308,8 +298,8 @@ test('comments named export with correct syntax', () => {
 		modifySource(program, {
 			baseConfig,
 		})
-	).toBe(`// TODO: Fix this the next time the file is edited.
-// eslint-disable-next-line import/prefer-default-export
+	)
+		.toBe(`// eslint-disable-next-line import/prefer-default-export -- TODO: Fix this the next time the file is edited.
 export const Component = (a, b) => {
   return a === b;
 }`);
@@ -327,8 +317,7 @@ test('does not split JSX lines containing multiple nodes', () => {
 	expect(modifySource(program)).toBe(`export function Component({ a, b }) {
   return (
     (<div>
-      {/* TODO: Fix this the next time the file is edited. */}
-      {/* eslint-disable-next-line eqeqeq */}
+      {/* eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited. */}
       Some text <span>{a == b}</span>.
     </div>)
   );
@@ -349,8 +338,7 @@ test('handles trailing text on the previous line', () => {
   return (
     (<div>
       <div />Some text
-      {/* TODO: Fix this the next time the file is edited. */}
-      {/* eslint-disable-next-line eqeqeq */}
+      {/* eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited. */}
       <span>{a == b}</span>.
     </div>)
   );
@@ -371,8 +359,7 @@ test('preserves significant trailing whitespace in jsx text nodes', () => {
   return (
     (<div>
       Some text <span>next to a span</span>
-      {/* TODO: Fix this the next time the file is edited. */}
-      {/* eslint-disable-next-line eqeqeq */}
+      {/* eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited. */}
       <span onClick={() => a == b}>hi</span>.
     </div>)
   );
@@ -393,8 +380,7 @@ test('preserves significant leading whitespace in jsx text nodes', () => {
   return (
     (<div>
       <span>A span</span> next to some text
-      {/* TODO: Fix this the next time the file is edited. */}
-      {/* eslint-disable-next-line eqeqeq */}
+      {/* eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited. */}
       <span onClick={() => a == b}>hi</span>.
     </div>)
   );
@@ -415,8 +401,7 @@ test('does not split if from preceding else', () => {
 	expect(modifySource(program)).toBe(`export function foo(a, b) {
   if (a === b) {
     return a;
-    // TODO: Fix this the next time the file is edited.
-    // eslint-disable-next-line eqeqeq
+    // eslint-disable-next-line eqeqeq -- TODO: Fix this the next time the file is edited.
   } else if (a == b) {
     return b;
   }
@@ -462,8 +447,7 @@ test('correctly handles empty blocks with multiple violations in else if conditi
 	expect(modifySource(program, { rules: 'eqeqeq,no-undef' })).toBe(`export function foo(a, b) {
   if (a === b) {
 
-    // TODO: Fix this the next time the file is edited.
-    // eslint-disable-next-line eqeqeq, no-undef
+    // eslint-disable-next-line eqeqeq, no-undef -- TODO: Fix this the next time the file is edited.
   } else if (a == c) {
     return b;
   }
