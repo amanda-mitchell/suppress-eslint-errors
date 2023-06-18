@@ -239,6 +239,38 @@ test('supports alternative messages in jsx', () => {
 }`);
 });
 
+test('supports no message in javascript', () => {
+	const program = `export function foo(a, b) {
+  return a == b;
+}
+`;
+
+	expect(modifySource(program, { message: false })).toBe(`export function foo(a, b) {
+  // eslint-disable-next-line eqeqeq
+  return a == b;
+}
+`);
+});
+
+test('supports no message in jsx', () => {
+	const program = `export function Component({ a, b }) {
+  return (
+    <div>
+      <div>{a == b}</div>
+    </div>
+  );
+}`;
+
+	expect(modifySource(program, { message: false })).toBe(`export function Component({ a, b }) {
+  return (
+    (<div>
+      {/* eslint-disable-next-line eqeqeq */}
+      <div>{a == b}</div>
+    </div>)
+  );
+}`);
+});
+
 test('supports rule whitelist in javascript', () => {
 	const program = `export function foo(a, b) {
   return a == b;
