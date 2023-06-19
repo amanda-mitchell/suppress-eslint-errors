@@ -7,10 +7,11 @@ const { ESLint } = workingDirectoryRequire('eslint');
 const eslintDisableRegexp = /^\s*eslint-disable-next-line(\s|$)(.*)/;
 
 module.exports = async function codeMod(file, api, options) {
-	const results = await new ESLint().lintText(
-		file.source,
-		options.baseConfig ? JSON.parse(options.baseConfig) : null
-	);
+	const results = await new ESLint({
+		baseConfig: options.baseConfig ? JSON.parse(options.baseConfig) : null,
+	}).lintText(file.source, {
+		filePath: file.path,
+	});
 
 	if (!results || !results[0] || !results[0].messages) {
 		return;
