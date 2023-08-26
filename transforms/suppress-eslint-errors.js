@@ -106,8 +106,7 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 		}
 
 		const newComments = [
-			createTrailingComment(api, ` ${commentText}`),
-			createTrailingComment(api, ` eslint-disable-next-line ${ruleId}`),
+			createTrailingComment(api, ` eslint-disable-next-line ${ruleId} -- ${commentText}`),
 		];
 
 		lastStatement.comments.push(...newComments);
@@ -123,9 +122,7 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 			return;
 		}
 
-		children.push(createJsxComment(api, commentText));
-		children.push(api.j.jsxText('\n'));
-		children.push(createJsxComment(api, `eslint-disable-next-line ${ruleId}`));
+		children.push(createJsxComment(api, `eslint-disable-next-line ${ruleId} -- ${commentText}`));
 		children.push(api.j.jsxText('\n'));
 
 		return;
@@ -244,9 +241,7 @@ function addDisableComment(filePath, api, commentText, targetLine, ruleId, path)
 		children.splice(
 			targetIndex,
 			0,
-			createJsxComment(api, commentText),
-			api.j.jsxText('\n'),
-			createJsxComment(api, `eslint-disable-next-line ${ruleId}`),
+			createJsxComment(api, `eslint-disable-next-line ${ruleId} -- ${commentText}`),
 			api.j.jsxText('\n')
 		);
 
@@ -269,10 +264,7 @@ function createNormalComment(api, ruleId, commentText, targetNode) {
 		targetNode.leadingComments = [];
 	}
 
-	const newComments = [
-		api.j.line(` ${commentText}`),
-		api.j.line(` eslint-disable-next-line ${ruleId}`),
-	];
+	const newComments = [api.j.line(` eslint-disable-next-line ${ruleId} -- ${commentText}`)];
 
 	targetNode.comments.push(...newComments);
 	targetNode.leadingComments.push(...newComments);
