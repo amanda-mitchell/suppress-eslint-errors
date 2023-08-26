@@ -2,14 +2,26 @@ const { createRequire } = require('module');
 const path = require('path');
 
 const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index.js'));
-const { CLIEngine } = workingDirectoryRequire('eslint');
+const { CLIEngine, ESLint } = workingDirectoryRequire('eslint');
 
 const eslintDisableRegexp = /^\s*eslint-disable-next-line(\s|$)(.*)/;
 
-module.exports = function codeMod(file, api, options) {
-	const { results } = new CLIEngine({
-		baseConfig: options.baseConfig ? JSON.parse(options.baseConfig) : null,
-	}).executeOnText(file.source, file.path);
+function runEslint(configuration, source, path) {
+	const options = {
+		baseConfig: configuration ? JSON.parse(configuration) : null,
+	};
+
+	// Prior to version 8, ESLint exported an object called CLIEngine that provided
+	// the core service.
+	if (CLIEngine) {
+		return Promise.resolve(new CLIEngine(options).executeOnText(source, path)).results;
+	}
+
+	return new ESLint(options).lintText(source, { filePath: path });
+}
+
+module.exports = async function codeMod(file, api, options) {
+	const results = await runEslint(options.baseConfig, file.source, file.path);
 
 	if (!results || !results[0] || !results[0].messages) {
 		return;
