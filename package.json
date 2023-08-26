@@ -9,7 +9,7 @@
   "license": "MIT",
   "description": "A codemod that suppresses existing violations of eslint rules.",
   "engines": {
-    "node": ">= 10.12.0"
+    "node": ">= 18"
   },
   "bin": {
     "suppress-eslint-errors": "./bin/index.js"

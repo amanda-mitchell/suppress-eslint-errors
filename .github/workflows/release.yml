@@ -10,7 +10,7 @@ jobs:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 18
       - run: yarn --frozen-lockfile --ignore-scripts
       - run: yarn jest
   release:
@@ -22,7 +22,7 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: 12
+          node-version: 18
       - name: Install dependencies
         run: yarn --frozen-lockfile --ignore-scripts
       - name: Release
