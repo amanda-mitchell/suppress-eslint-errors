@@ -17,6 +17,8 @@
   "files": ["bin/index.js", "transforms/*.js"],
   "scripts": {
     "lefthook-install": "lefthook install",
+    "lint": "biome check .",
+    "format": "yarn lint --apply",
     "suppress-eslint-errors": "node bin/index.js"
   },
   "publishConfig": {
