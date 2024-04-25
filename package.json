@@ -14,11 +14,9 @@
   "bin": {
     "suppress-eslint-errors": "./bin/index.js"
   },
-  "files": [
-    "bin/index.js",
-    "transforms/*.js"
-  ],
+  "files": ["bin/index.js", "transforms/*.js"],
   "scripts": {
+    "lefthook-install": "lefthook install",
     "suppress-eslint-errors": "node bin/index.js"
   },
   "publishConfig": {
@@ -35,6 +33,7 @@
   "devDependencies": {
     "@biomejs/biome": "1.7.1",
     "jest": "29.7.0",
+    "lefthook": "^1.6.10",
     "typescript": "5.4.5"
   }
 }
