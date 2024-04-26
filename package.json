@@ -20,7 +20,7 @@
   "bin": {
     "suppress-biome-errors": "./bin/index.js"
   },
-  "files": ["bin/index.js", "transforms/*.ts"],
+  "files": ["bin/index.js", "transforms/suppress-biome-errors.ts"],
   "scripts": {
     "lefthook-install": "lefthook install",
     "lint": "biome check .",

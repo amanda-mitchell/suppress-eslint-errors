@@ -25,16 +25,16 @@ async function logError(...args) {
 }
 
 try {
-  workingDirectoryRequire('eslint')
+  workingDirectoryRequire('biome')
 } catch (x) {
   Promise.all([
-    logError('eslint was not found.'),
-    logError('suppress-eslint-errors requires eslint to be installed in the working directory.'),
+    logError('biome was not found.'),
+    logError('suppress-biome-errors requires biome to be installed in the working directory.'),
   ]).finally(() => process.exit(1))
 }
 
 const jscodeshiftPath = require.resolve('jscodeshift/bin/jscodeshift')
-const transformPath = require.resolve('../transforms/suppress-eslint-errors')
+const transformPath = require.resolve('../transforms/suppress-biome-errors.ts')
 
 async function findGitignoreArguments() {
   const gitignorePath = path.resolve(process.cwd(), '.gitignore')
@@ -60,7 +60,6 @@ async function findGitignoreArguments() {
     'node',
     [
       jscodeshiftPath,
-      '--no-babel',
       '-t',
       transformPath,
       ...(await findGitignoreArguments()),
