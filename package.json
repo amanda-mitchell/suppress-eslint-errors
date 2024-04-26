@@ -1,25 +1,32 @@
 {
-  "name": "suppress-eslint-errors",
-  "version": "0.9.0",
+  "name": "@ton1517/suppress-biome-errors",
+  "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "https://github.com/amanda-mitchell/suppress-eslint-errors"
+    "url": "https://github.com/ton1517/suppress-biome-errors"
   },
-  "author": "Amanda Mitchell <she@mandymitchell.me>",
+  "author": "ton1517",
   "license": "MIT",
-  "description": "A codemod that suppresses existing violations of eslint rules.",
+  "description": "A codemod that suppresses existing violations of biome rules.",
+  "keywords": ["biome", "codemod"],
+  "bugs": {
+    "url": "https://github.com/ton1517/suppress-biome-errors/issues"
+  },
+  "homepage": "https://github.com/ton1517/suppress-biome-errors",
   "engines": {
     "node": ">= 18"
   },
+  "main": "bin/index.js",
   "bin": {
-    "suppress-eslint-errors": "./bin/index.js"
+    "suppress-biome-errors": "./bin/index.js"
   },
-  "files": ["bin/index.js", "transforms/*.js"],
+  "files": ["bin/index.js", "transforms/*.ts"],
   "scripts": {
     "lefthook-install": "lefthook install",
     "lint": "biome check .",
     "format": "yarn lint --apply",
-    "suppress-eslint-errors": "node bin/index.js"
+    "suppress-biome-errors": "node bin/index.js",
+    "test": "jest"
   },
   "publishConfig": {
     "access": "public"
@@ -34,8 +41,12 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.7.1",
+    "@jest/globals": "^29.7.0",
+    "@types/jscodeshift": "^0.11.11",
     "jest": "29.7.0",
     "lefthook": "^1.6.10",
+    "ts-jest": "^29.1.2",
+    "ts-node": "^10.9.2",
     "typescript": "5.4.5"
   }
 }
