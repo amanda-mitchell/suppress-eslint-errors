@@ -1,5 +1,7 @@
+import fs from 'node:fs'
 import { Biome, Distribution, type LintResult } from '@biomejs/js-api'
 import { type API, type ASTPath, type FileInfo, Node, type Options } from 'jscodeshift'
+import { jsonc } from 'jsonc'
 
 type JAPI = Pick<API, 'j' | 'report'>
 type Explanation = string | undefined
@@ -27,10 +29,20 @@ function findLineNumber(source: string, startByte: number): number {
   return -1
 }
 
-async function runBiome(source: string, filePath: string): Promise<LintResult> {
+async function runBiome(
+  source: string,
+  filePath: string,
+  configPath?: string,
+): Promise<LintResult> {
   const biome = await Biome.create({
     distribution: Distribution.NODE,
   })
+
+  if (configPath) {
+    const config = jsonc.parse(fs.readFileSync(configPath, 'utf8'))
+    biome.applyConfiguration(config)
+  }
+
   return biome.lintContent(source, { filePath })
 }
 
@@ -40,7 +52,7 @@ export default async function transform(
   options: Options,
 ): Promise<string | null | undefined> {
   const { j, report } = api
-  const lintResult = await runBiome(file.source, file.path)
+  const lintResult = await runBiome(file.source, file.path, options['config-path'])
 
   const ruleIdWhitelist = (options.rules || '').split(',').filter((x: string) => x)
   const ruleIdWhitelistSet = ruleIdWhitelist.length ? new Set(ruleIdWhitelist) : null

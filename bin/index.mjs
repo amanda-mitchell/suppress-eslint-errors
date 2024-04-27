@@ -6,10 +6,15 @@ import { resolve } from 'node:path'
 import chalk from 'chalk'
 import { Command } from 'commander'
 import { sync } from 'cross-spawn'
+import findConfig from 'find-config'
 import pleaseUpgradeNode from 'please-upgrade-node'
 
 function logWarning(...args) {
   console.warn(chalk.yellow(...args))
+}
+
+function logError(...args) {
+  console.error(chalk.red(...args))
 }
 
 async function findGitignoreArguments() {
@@ -61,6 +66,10 @@ Suppress violations of the lint/suspicious/noExplicitAny and lint/style/noNonNul
       '--rules <RULES>',
       'Comma-separated list of biome rule category to disable. When specified, violations of rules not in this set will be left in place.',
     )
+    .option(
+      '--config-path <PATH>',
+      'The path to a biome configuration file that will be used to determine which rules to disable. If not specified, find biome.json or biome.jsonc automatically.',
+    )
     .addHelpText(
       'after',
       `
@@ -73,15 +82,22 @@ ${sync('node', [jscodeshiftPath, '--help']).stdout.toString()}`,
 
   program.parse()
 
+  const argv = process.argv.slice(2)
+
+  const options = program.opts()
+  if (!options.configPath) {
+    const configPath = findConfig('biome.json') ?? findConfig('biome.jsonc')
+    if (!configPath) {
+      logError('biome.json or biome.jsonc not found')
+      process.exit(1)
+    }
+
+    argv.push('--config-path', configPath)
+  }
+
   const result = sync(
     'node',
-    [
-      jscodeshiftPath,
-      '-t',
-      transformPath,
-      ...(await findGitignoreArguments()),
-      ...process.argv.slice(2),
-    ],
+    [jscodeshiftPath, '-t', transformPath, ...(await findGitignoreArguments()), ...argv],
     {
       stdio: 'inherit',
     },

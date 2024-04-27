@@ -44,6 +44,8 @@ Be sure to re-run any code formatting tools you use before committing!
 
 **--rules**: Comma-separated list of biome rule category to disable. When specified, violations of rules not in this set will be left in place.
 
+**--config-path** The path to a biome configuration file that will be used to determine which rules to disable. If not specified, find biome.json or biome.jsonc automatically.
+
 ## Examples
 
 Suppress all errors in the `index.js` file, using a custom comment:

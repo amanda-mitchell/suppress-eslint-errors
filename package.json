@@ -37,12 +37,15 @@
     "chalk": "5.3.0",
     "commander": "^12.0.0",
     "cross-spawn": "7.0.3",
+    "find-config": "^1.0.0",
     "jscodeshift": "0.15.2",
+    "jsonc": "^2.0.0",
     "please-upgrade-node": "3.2.0"
   },
   "devDependencies": {
     "@biomejs/biome": "1.7.1",
     "@jest/globals": "^29.7.0",
+    "@types/find-config": "^1.0.4",
     "@types/jscodeshift": "^0.11.11",
     "jest": "29.7.0",
     "lefthook": "^1.6.10",
