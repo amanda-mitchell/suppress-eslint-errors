@@ -49,11 +49,11 @@ Be sure to re-run any code formatting tools you use before committing!
 Suppress all errors in the `index.js` file, using a custom comment:
 
 ```bash
-npx suppress-biome-errors ./index.js --message="TODO: Issue #123"
+npx @ton1517/suppress-biome-errors ./index.js --message="TODO: Issue #123"
 ```
 
 Suppress violations of the `lint/suspicious/noExplicitAny` and `lint/style/noNonNullAssertion` rules in .ts and .tsx files in the `src` directory:
 
 ```bash
-npx suppress-biome-errors ./src --extensions=ts,tsx --parser=tsx --rules='lint/suspicious/noExplicitAny,lint/style/noNonNullAssertion'
+npx @ton1517/suppress-biome-errors ./src --extensions=ts,tsx --parser=tsx --rules='lint/suspicious/noExplicitAny,lint/style/noNonNullAssertion'
 ```
