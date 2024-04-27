@@ -385,6 +385,8 @@ test('correctly handles empty blocks with multiple violations in else if conditi
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js')
 
 async function modifySource(source: string, options?: Options) {
+  const j = jscodeshift.withParser('tsx')
+
   const transformOptions = { ...options }
   if (transformOptions.baseConfig) {
     transformOptions.baseConfig = JSON.stringify(transformOptions.baseConfig)
@@ -395,7 +397,7 @@ async function modifySource(source: string, options?: Options) {
       source,
       path: defaultPath,
     },
-    { j: jscodeshift, report: console.log },
+    { j, report: console.log },
     transformOptions,
   )
 
