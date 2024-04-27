@@ -1,26 +1,25 @@
 #!/usr/bin/env node
 
+import { existsSync, readFileSync } from 'node:fs'
+import { createRequire } from 'node:module'
+import { resolve } from 'node:path'
+import chalk from 'chalk'
+import { sync } from 'cross-spawn'
+import pleaseUpgradeNode from 'please-upgrade-node'
+
+const require = createRequire(import.meta.url)
 // This must be performed before anything else in order for
 // please-upgrade-node to work properly.
 const pkg = require('../package.json')
-require('please-upgrade-node')(pkg)
+pleaseUpgradeNode(pkg)
 
-const fs = require('node:fs')
-const { createRequire } = require('node:module')
-const path = require('node:path')
-const spawn = require('cross-spawn')
+const workingDirectoryRequire = createRequire(resolve(process.cwd(), 'index.js'))
 
-const workingDirectoryRequire = createRequire(path.resolve(process.cwd(), 'index.js'))
-
-const chalkImport = import('chalk')
-
-async function logWarning(...args) {
-  const { default: chalk } = await chalkImport
+function logWarning(...args) {
   console.warn(chalk.yellow(...args))
 }
 
-async function logError(...args) {
-  const { default: chalk } = await chalkImport
+function logError(...args) {
   console.error(chalk.red(...args))
 }
 
@@ -37,18 +36,16 @@ const jscodeshiftPath = require.resolve('jscodeshift/bin/jscodeshift')
 const transformPath = require.resolve('../transforms/suppress-biome-errors.ts')
 
 async function findGitignoreArguments() {
-  const gitignorePath = path.resolve(process.cwd(), '.gitignore')
+  const gitignorePath = resolve(process.cwd(), '.gitignore')
 
-  if (!fs.existsSync(gitignorePath)) {
+  if (!existsSync(gitignorePath)) {
     return []
   }
 
-  const allLines = fs.readFileSync(gitignorePath, { encoding: 'utf8' }).split('\n')
+  const allLines = readFileSync(gitignorePath, { encoding: 'utf8' }).split('\n')
   if (allLines.findIndex((line) => line.startsWith('!')) !== -1) {
-    await logWarning(
-      'your .gitignore contains exclusions, which jscodeshift does not properly support.',
-    )
-    await logWarning('skipping the ignore-config option.')
+    logWarning('your .gitignore contains exclusions, which jscodeshift does not properly support.')
+    logWarning('skipping the ignore-config option.')
 
     return []
   }
@@ -56,7 +53,7 @@ async function findGitignoreArguments() {
   return ['--ignore-config=.gitignore']
 }
 ;(async function runJsCodeShift() {
-  const result = spawn.sync(
+  const result = sync(
     'node',
     [
       jscodeshiftPath,

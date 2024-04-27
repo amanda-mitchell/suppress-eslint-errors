@@ -5,7 +5,7 @@ test('runs without errors', () => {
   const result = spawn.sync(
     'node',
     [
-      path.join(__dirname, '..', 'bin', 'index.js'),
+      path.join(__dirname, '..', 'bin', 'index.mjs'),
       '-d',
       '--extensions=js,ts',
       '--parser=ts',

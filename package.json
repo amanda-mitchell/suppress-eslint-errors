@@ -16,16 +16,16 @@
   "engines": {
     "node": ">= 18"
   },
-  "main": "bin/index.js",
+  "main": "bin/index.mjs",
   "bin": {
-    "suppress-biome-errors": "./bin/index.js"
+    "suppress-biome-errors": "./bin/index.mjs"
   },
-  "files": ["bin/index.js", "transforms/suppress-biome-errors.ts"],
+  "files": ["bin/index.mjs", "transforms/suppress-biome-errors.ts"],
   "scripts": {
     "lefthook-install": "lefthook install",
     "lint": "biome check .",
     "format": "yarn lint --apply",
-    "suppress-biome-errors": "node bin/index.js",
+    "suppress-biome-errors": "node bin/index.mjs",
     "test": "jest"
   },
   "publishConfig": {
