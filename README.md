@@ -29,9 +29,6 @@ npx suppress-biome-errors [jscodeshift options] PATH...
 The wrapper will call `jscodeshift` with the transformer and any other arguments that you pass to it.
 If it detects a `.gitignore` in the local directory, it will also specify that as the `--ignore-config`.
 
-`suppress-biome-errors` must be used with a locally installed copy of `biome`.
-If it can't find one, it will bail out early.
-
 _NOTE:_ `jscodeshift` has some bugs with respect to how it handles `.gitignore` files that sometimes causes it to ignore all files.
 If this tool detects that your `.gitignore` contains problematic patterns, the `--ignore-config` option will be skipped.
 

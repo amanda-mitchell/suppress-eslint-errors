@@ -13,23 +13,8 @@ const require = createRequire(import.meta.url)
 const pkg = require('../package.json')
 pleaseUpgradeNode(pkg)
 
-const workingDirectoryRequire = createRequire(resolve(process.cwd(), 'index.js'))
-
 function logWarning(...args) {
   console.warn(chalk.yellow(...args))
-}
-
-function logError(...args) {
-  console.error(chalk.red(...args))
-}
-
-try {
-  workingDirectoryRequire('biome')
-} catch (x) {
-  Promise.all([
-    logError('biome was not found.'),
-    logError('suppress-biome-errors requires biome to be installed in the working directory.'),
-  ]).finally(() => process.exit(1))
 }
 
 const jscodeshiftPath = require.resolve('jscodeshift/bin/jscodeshift')
