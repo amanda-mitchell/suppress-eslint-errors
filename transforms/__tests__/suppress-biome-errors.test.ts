@@ -78,7 +78,7 @@ test('inserts a new comment with empty message in jsx', async () => {
 }`)
 })
 
-test('insert a new comment below an existing comment in javascript', async () => {
+test('inserts a new comment below an existing comment in javascript', async () => {
   const program = `export function foo(a, b) {
  // biome-ignore lint/suspicious/noDoubleEquals: TODO: Fix this the next time the file is edited.
  var bar = a == b;
@@ -93,7 +93,7 @@ test('insert a new comment below an existing comment in javascript', async () =>
 `)
 })
 
-test('insert a new comment below an existing comment in jsx', async () => {
+test('inserts a new comment below an existing comment in jsx', async () => {
   const program = `export function Component({ a }) {
  return (
    <div>
@@ -225,16 +225,7 @@ test('supports rule whitelist in javascript', async () => {
 `)
 })
 
-// TODO: check biome warning.
-//test('skips eslint warnings', async () => {
-//  const program = `export function fn(a) {
-//  a()
-//}`
-//
-//  await expect(modifySource(program)).resolves.toBe(undefined)
-//})
-
-test('skips files that eslint cannot parse', async () => {
+test('skips files that biome cannot parse', async () => {
   const program = 'not actually javascript'
 
   await expect(modifySource(program)).resolves.toBe(undefined)
