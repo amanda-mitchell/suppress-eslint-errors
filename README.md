@@ -2,6 +2,9 @@
 
 If you have a large number of biome errors, you can use this tool to automatically add biome-ignore comments.
 
+> [!WARNING]
+> This tool uses @biomejs/js-api of alpha version.
+
 ## Acknowledgments
 
 This tool is forked from [suppress-eslint-errors](https://github.com/amanda-mitchell/suppress-eslint-errors) by [
