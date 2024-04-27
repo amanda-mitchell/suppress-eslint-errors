@@ -57,30 +57,29 @@ export default async function transform(
   const ruleIdWhitelist = (options.rules || '').split(',').filter((x: string) => x)
   const ruleIdWhitelistSet = ruleIdWhitelist.length ? new Set(ruleIdWhitelist) : null
 
-  // remove duplicates by category and location span
-  const uniqueDiagnosticList = [
-    ...new Map(
-      lintResult.diagnostics
-        .filter((diagnostic) => diagnostic.category?.startsWith('lint/'))
-        .filter((diagnostic) => {
-          return ruleIdWhitelistSet === null || ruleIdWhitelistSet.has(diagnostic.category)
-        })
-        .map((diagnostic) => [diagnostic.location.span?.join(), diagnostic]),
-    ).values(),
-  ]
+  const filteredDiagnostics = lintResult.diagnostics
+    .filter((diagnostic) => diagnostic.category?.startsWith('lint/'))
+    .filter((diagnostic) => {
+      return ruleIdWhitelistSet === null || ruleIdWhitelistSet.has(diagnostic.category)
+    })
 
-  if (uniqueDiagnosticList.length === 0) {
+  if (filteredDiagnostics.length === 0) {
     return
   }
 
   const lineDiagnosticsMap = new Map<number, string[]>()
-  for (const { location, category } of uniqueDiagnosticList) {
+  for (const { location, category } of filteredDiagnostics) {
     if (!category) {
       continue
     }
     const targetLine = findLineNumber(file.source, location.span?.[0] ?? 0)
     lineDiagnosticsMap.set(targetLine, [...(lineDiagnosticsMap.get(targetLine) ?? []), category])
   }
+
+  // Deduplicate and sort rules
+  lineDiagnosticsMap.forEach((rules, targetLine) => {
+    lineDiagnosticsMap.set(targetLine, Array.from(new Set(rules)).sort())
+  })
 
   const result = j(file.source)
 

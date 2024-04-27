@@ -107,8 +107,8 @@ test('inserts a new comment below an existing comment in jsx', async () => {
  return (
    (<div>
      {/* biome-ignore lint/suspicious/noDoubleEquals: */}
-     {/* biome-ignore lint/suspicious/noAssignInExpressions: TODO: Fix this the next time the file is edited. */}
      {/* biome-ignore lint/correctness/noSelfAssign: TODO: Fix this the next time the file is edited. */}
+     {/* biome-ignore lint/suspicious/noAssignInExpressions: TODO: Fix this the next time the file is edited. */}
      <div>{c = c}{b == c}</div>
    </div>)
  );
@@ -380,6 +380,13 @@ test('correctly handles empty blocks with multiple violations in else if conditi
 
  return null;
 }`)
+})
+
+test('add only one comment, even if there are multiple errors of the same category on the same line', async () => {
+  const program = 'function fn(a: any, b: any, c: any) {}'
+
+  await expect(modifySource(program, { baseConfig: { parser: 'ts' } })).resolves.toBe(`// biome-ignore lint/suspicious/noExplicitAny: TODO: Fix this the next time the file is edited.
+function fn(a: any, b: any, c: any) {}`)
 })
 
 const defaultPath = path.resolve(__dirname, 'examples', 'index.js')
