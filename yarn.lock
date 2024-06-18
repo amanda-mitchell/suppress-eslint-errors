@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@amanda-mitchell/node-project-scripts@4.90.0":
-  version "4.90.0"
-  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.90.0.tgz#b6b07ee4460dc1049218e076c40a4e9f9d73048b"
-  integrity sha512-mYrOK+xyOEr9hwRo+yQV0xg6fzFzPuK6ejvtPy3g0H9/2/60YP2xe/lBVrGXUeiq7ek0t5zBNfONduFmAhNHcg==
+"@amanda-mitchell/node-project-scripts@4.91.0":
+  version "4.91.0"
+  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.91.0.tgz#16aab996359cffa2a292c45132ee80896df10a1e"
+  integrity sha512-pPznXgAUw6Q+vfbx1jmYIWsZEI3J6ILMc2gjRNWFQLnUCWJ+CEHDOLsGumJbdq36vZmHVqoYMUoSh96ba+tvSQ==
   dependencies:
     "@amanda-mitchell/semantic-release-npm-multiple" "^3.0.0"
     "@commitlint/cli" "^19.0.0"
@@ -26,7 +26,7 @@
     pkg-dir "^8.0.0"
     prettier "3.3.2"
     semantic-release "^19.0.2"
-    ts-jest "29.1.4"
+    ts-jest "29.1.5"
     typescript "5.4.5"
 
 "@amanda-mitchell/semantic-release-npm-multiple@^3.0.0":
@@ -8089,10 +8089,10 @@ trim-newlines@^3.0.0:
   resolved "https://registry.yarnpkg.com/trim-newlines/-/trim-newlines-3.0.1.tgz#260a5d962d8b752425b32f3a7db0dcacd176c144"
   integrity sha512-c1PTsA3tYrIsLGkJkzHF+w9F2EyxfXGo4UyJc4pFL++FMjnq0HJS69T3M7d//gKrFKwy429bouPescbjecU+Zw==
 
-ts-jest@29.1.4:
-  version "29.1.4"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.1.4.tgz#26f8a55ce31e4d2ef7a1fd47dc7fa127e92793ef"
-  integrity sha512-YiHwDhSvCiItoAgsKtoLFCuakDzDsJ1DLDnSouTaTmdOcOwIkSzbLXduaQ6M5DRVhuZC/NYaaZ/mtHbWMv/S6Q==
+ts-jest@29.1.5:
+  version "29.1.5"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.1.5.tgz#d6c0471cc78bffa2cb4664a0a6741ef36cfe8f69"
+  integrity sha512-UuClSYxM7byvvYfyWdFI+/2UxMmwNyJb0NPkZPQE2hew3RurV7l7zURgOHAd/1I1ZdPpe3GUsXNXAcN8TFKSIg==
   dependencies:
     bs-logger "0.x"
     fast-json-stable-stringify "2.x"
