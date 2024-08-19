@@ -48,8 +48,15 @@ module.exports = async function codeMod(file, api, options) {
 	const ruleIdWhitelist = (options.rules || '').split(',').filter((x) => x);
 	const ruleIdWhitelistSet = ruleIdWhitelist.length ? new Set(ruleIdWhitelist) : null;
 
+	let hasMaxLinesRule = false;
+
 	for (const { targetLine, ruleId } of targets) {
 		if (ruleIdWhitelistSet && !ruleIdWhitelistSet.has(ruleId)) {
+			continue;
+		}
+
+		if (ruleId === 'max-lines') {
+			hasMaxLinesRule = true;
 			continue;
 		}
 
@@ -70,6 +77,27 @@ module.exports = async function codeMod(file, api, options) {
 		}
 
 		addDisableComment(file.path, api, commentText, targetLine, ruleId, firstPathOnLine);
+	}
+
+	// Gotta put the disable max-lines comment near the top of the file
+	if (hasMaxLinesRule) {
+		const disableComment = `/* eslint-disable max-lines */\n`;
+		const todoComment = `/* ${commentText} */\n`;
+
+		const useClientMatch = file.source.match(/^(\s*['"]use client['"];?\s*)/);
+
+		let updatedSource;
+		if (useClientMatch) {
+			// If 'use client' exists, insert comments just after it
+			const [fullMatch, useClientDirective] = useClientMatch;
+			updatedSource =
+				useClientDirective + todoComment + disableComment + file.source.slice(fullMatch.length);
+		} else {
+			// If 'use client' doesn't exist, insert comments at the beginning
+			updatedSource = todoComment + disableComment + file.source;
+		}
+
+		return api.j(updatedSource).toSource();
 	}
 
 	return result.toSource();
