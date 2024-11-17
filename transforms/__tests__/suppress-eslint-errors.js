@@ -87,10 +87,10 @@ test('updates an existing comment in jsx', () => {
 
 	expect(modifySource(program)).resolves.toBe(`export function Component({ a }) {
   return (
-    <div>
+    (<div>
       {/* eslint-disable-next-line eqeqeq, no-undef */}
       <div>{a == c}</div>
-    </div>
+    </div>)
   );
 }`);
 });
@@ -107,10 +107,10 @@ test('updates an existing comment with an explanation in jsx', () => {
 
 	expect(modifySource(program)).resolves.toBe(`export function Component({ a }) {
   return (
-    <div>
+    (<div>
       {/* eslint-disable-next-line eqeqeq, no-undef -- for reasons */}
       <div>{a == c}</div>
-    </div>
+    </div>)
   );
 }`);
 });
@@ -127,12 +127,12 @@ test('inserts comments above a closing tag', () => {
 
 	expect(modifySource(program)).resolves.toBe(`export function Component({ a, b }) {
   return (
-    <div>
+    (<div>
       <div>
         {/* TODO: Fix this the next time the file is edited. */}
         {/* eslint-disable-next-line eqeqeq */}
       </div>{a == b}
-    </div>
+    </div>)
   );
 }`);
 });
@@ -150,11 +150,11 @@ test('updates comments above a closing tag', () => {
 
 	expect(modifySource(program)).resolves.toBe(`export function Component({ a }) {
   return (
-    <div>
+    (<div>
       <div>
         {/* eslint-disable-next-line eqeqeq, no-undef */}
       </div>{a == c}
-    </div>
+    </div>)
   );
 }`);
 });
@@ -170,11 +170,11 @@ test('supports adding comments to JSX attributes', () => {
 
 	expect(modifySource(program)).resolves.toBe(`export function Component({ a, b }) {
     return (
-      <div
+      (<div
         // TODO: Fix this the next time the file is edited.
         // eslint-disable-next-line eqeqeq
         prop={a == b ? a : b}>
-      </div>
+      </div>)
     );
   }`);
 });
@@ -192,13 +192,13 @@ test('supports adding comments to JSX attributes containing markup', () => {
 
 	expect(modifySource(program)).resolves.toBe(`export function Component({ a, b }) {
     return (
-      <div
+      (<div
         prop={
           // TODO: Fix this the next time the file is edited.
           // eslint-disable-next-line eqeqeq
           <div prop={a == b ? a : b} />
         }>
-      </div>
+      </div>)
     );
   }`);
 });
