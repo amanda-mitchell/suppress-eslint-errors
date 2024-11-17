@@ -45,13 +45,13 @@ module.exports = async function codeMod(file, api, options) {
 			? options.message
 			: 'TODO: Fix this the next time the file is edited.';
 
-	const ruleIdWhitelist = (options.rules || '').split(',').filter((x) => x);
-	const ruleIdWhitelistSet = ruleIdWhitelist.length ? new Set(ruleIdWhitelist) : null;
+	const ruleIdAllowList = (options.rules || '').split(',').filter((x) => x);
+	const ruleIdAllowListSet = ruleIdAllowList.length ? new Set(ruleIdAllowList) : null;
 
 	let hasMaxLinesRule = false;
 
 	for (const { targetLine, ruleId } of targets) {
-		if (ruleIdWhitelistSet && !ruleIdWhitelistSet.has(ruleId)) {
+		if (ruleIdAllowListSet && !ruleIdAllowListSet.has(ruleId)) {
 			continue;
 		}
 
