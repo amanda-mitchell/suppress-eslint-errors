@@ -5060,9 +5060,9 @@ jsbn@1.1.0:
   integrity sha512-4bYVV3aAMtDTTu4+xsDYa6sy9GyJ69/amsu9sYF2zqjiEoZA5xJi3BrfX3uY+/IekIu7MwdObdbDWpoZdBv3/A==
 
 jscodeshift@^17.1.1:
-  version "17.1.1"
-  resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-17.1.1.tgz#03d81c8d32bd7100c2f092cf2a38bd9ae88379c6"
-  integrity sha512-4vq5B1sD37aa9qed3zWq2XQPun5XjxebIv+Folr57lt8B4HLGDHEz1UG7pfcxzSaelzPbcY7yZSs033/S0i6wQ==
+  version "17.1.2"
+  resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-17.1.2.tgz#d77e9d3d08fdbb1548818bc22f653aba7fc21a25"
+  integrity sha512-uime4vFOiZ1o3ICT4Sm/AbItHEVw2oCxQ3a0egYVy3JMMOctxe07H3SKL1v175YqjMt27jn1N+3+Bj9SKDNgdQ==
   dependencies:
     "@babel/core" "^7.24.7"
     "@babel/parser" "^7.24.7"
