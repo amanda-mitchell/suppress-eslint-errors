@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@amanda-mitchell/node-project-scripts@4.132.0":
-  version "4.132.0"
-  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.132.0.tgz#53704a6f342a0971b754ee6884c05e4027b05521"
-  integrity sha512-k2fKPX1gGrS7z6BftoiZeu6bZN6u3GLVVpr88ah90BJTeacf/Ydw8YdIzYUOW9tTBzzZObUuT7v7JuUXUVr1TQ==
+"@amanda-mitchell/node-project-scripts@4.134.0":
+  version "4.134.0"
+  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.134.0.tgz#9996f972940a094ee7c3d1fc702d1b3ccccb8256"
+  integrity sha512-6Rao4Ei0QGJFq9FsYhw5uB2qcbCPxTUu7TFPFq1UXZIaHLPKYkQaBf57uRRQ9FtPcoBt4Ts9OIm6j37i4CAmlw==
   dependencies:
     "@amanda-mitchell/semantic-release-npm-multiple" "^3.11.0"
     "@commitlint/cli" "^19.0.0"
