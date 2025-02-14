@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@amanda-mitchell/node-project-scripts@4.136.0":
-  version "4.136.0"
-  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.136.0.tgz#aa99065d60e5901922a6fa4a699ad4a4c7f78ec7"
-  integrity sha512-0w57VZaZCfK/avv3RbjYMHjdgfXD9sNZAAwTRYAqe7DX1dk3WGtoy6z+gh/vVWi7UZDF1NGdxEkeFY+jEBAk0g==
+"@amanda-mitchell/node-project-scripts@4.137.0":
+  version "4.137.0"
+  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.137.0.tgz#08dbc5e2321d06dd8be62d65dd19c2eef36d1e5e"
+  integrity sha512-VqgC6PB3x3SqUCzGz4JR5fkC9bS+cbbDYuX37sC9BWZDYRQiYmJH3AvIeYFNuOztnPsuS5+93alAVghIYUCP5A==
   dependencies:
     "@amanda-mitchell/semantic-release-npm-multiple" "^3.11.0"
     "@commitlint/cli" "^19.0.0"
@@ -24,7 +24,7 @@
     jest "^29.6.4"
     lint-staged "^15.0.1"
     pkg-dir "^8.0.0"
-    prettier "3.5.0"
+    prettier "3.5.1"
     semantic-release "^24.2.0"
     ts-jest "29.2.5"
     typescript "5.7.3"
@@ -6560,10 +6560,10 @@ prelude-ls@^1.2.1:
   resolved "https://registry.yarnpkg.com/prelude-ls/-/prelude-ls-1.2.1.tgz#debc6489d7a6e6b0e7611888cec880337d316396"
   integrity sha512-vkcDPrRZo1QZLbn5RLGPpg/WmIQ65qoWWhcGKf/b5eplkkarX0m9z8ppCat4mlOqUsWpyNuYgO3VRyrYHSzX5g==
 
-prettier@3.5.0:
-  version "3.5.0"
-  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.0.tgz#50325a28887c6dfdf2ca3f8eaba02b66a8429ca7"
-  integrity sha512-quyMrVt6svPS7CjQ9gKb3GLEX/rl3BCL2oa/QkNcXv4YNVBC9olt3s+H7ukto06q7B1Qz46PbrKLO34PR6vXcA==
+prettier@3.5.1:
+  version "3.5.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-3.5.1.tgz#22fac9d0b18c0b92055ac8fb619ac1c7bef02fb7"
+  integrity sha512-hPpFQvHwL3Qv5AdRvBFMhnKo4tYxp0ReXiPn2bxkiohEX6mBeBwEpBSQTkD458RaaDKQMYSp4hX4UtfUTA5wDw==
 
 pretty-format@^29.0.0, pretty-format@^29.6.3:
   version "29.6.3"
