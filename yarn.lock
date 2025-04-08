@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@amanda-mitchell/node-project-scripts@4.153.0":
-  version "4.153.0"
-  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.153.0.tgz#29e32dec7145ed07021bb51b988b79f873ed8604"
-  integrity sha512-owBa9HCR8m8/mxuThXpJ/gZWAX5IrNGgiLjFO/rUyE9ZTRterZGyzO8cj7CaYxDX1/P7QhDUtQsIORnEoNGYyQ==
+"@amanda-mitchell/node-project-scripts@4.154.0":
+  version "4.154.0"
+  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.154.0.tgz#c399c036c311a4bb2bc9fcfc2d8dc89f8187b1c5"
+  integrity sha512-4VRenCcrLfbWmlLhN85gh3q8zwSOHTAjcBiwjGV/QxRGeWOXVB06/figCusEiZDRsYryI5X+0dqm0oH9OzTiKg==
   dependencies:
     "@amanda-mitchell/semantic-release-npm-multiple" "^3.11.0"
     "@commitlint/cli" "^19.0.0"
@@ -27,7 +27,7 @@
     prettier "3.5.3"
     semantic-release "^24.2.0"
     ts-jest "29.3.1"
-    typescript "5.8.2"
+    typescript "5.8.3"
 
 "@amanda-mitchell/semantic-release-npm-multiple@^3.11.0":
   version "3.11.1"
@@ -7837,10 +7837,10 @@ typed-array-length@^1.0.6:
     is-typed-array "^1.1.13"
     possible-typed-array-names "^1.0.0"
 
-typescript@5.8.2, typescript@^5.0.2:
-  version "5.8.2"
-  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.8.2.tgz#8170b3702f74b79db2e5a96207c15e65807999e4"
-  integrity sha512-aJn6wq13/afZp/jT9QZmwEjDqqvSGp1VT5GVg+f/t6/oVyrgXM6BY1h9BRh/O5p3PlUPAe+WuiEZOmb/49RqoQ==
+typescript@5.8.3, typescript@^5.0.2:
+  version "5.8.3"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-5.8.3.tgz#92f8a3e5e3cf497356f4178c34cd65a7f5e8440e"
+  integrity sha512-p1diW6TqL9L07nNxvRMM7hMMw4c5XOo/1ibL4aAIGmSAt9slTE1Xgw5KWuof2uTOvCg9BY7ZRi+GaF+7sfgPeQ==
 
 uglify-js@^3.1.4:
   version "3.13.10"
