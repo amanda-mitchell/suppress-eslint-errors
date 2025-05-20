@@ -7,10 +7,10 @@
   resolved "https://registry.yarnpkg.com/@aashutoshrathi/word-wrap/-/word-wrap-1.2.6.tgz#bd9154aec9983f77b3a034ecaa015c2e4201f6cf"
   integrity sha512-1Yjs2SvM8TflER/OD3cOjhWWOZb58A2t7wpE2S9XfBYTiIl+XFhQG2bjy4Pu1I+EAlCNUzRDYDdFwFYUKvXcIA==
 
-"@amanda-mitchell/node-project-scripts@4.161.0":
-  version "4.161.0"
-  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.161.0.tgz#8d6a198d71b98ebc236ba6708be72efd07dfaa69"
-  integrity sha512-Tq4zLs/6zu21zvu0W5YHdabeHFxDGM8Ini0pQuZTnfbVAsn2KB6/oZ+yNLJo/xEt5S+ElJGm6lNyIO0z4g9dxQ==
+"@amanda-mitchell/node-project-scripts@4.163.0":
+  version "4.163.0"
+  resolved "https://registry.yarnpkg.com/@amanda-mitchell/node-project-scripts/-/node-project-scripts-4.163.0.tgz#d7d4ae6cf6f8dcd372834e3574a73b64422e9c20"
+  integrity sha512-Y0OsWelxCHLQjH377xGP7aNvhMhtvI3LG4C/TZ5LXka2wtwti459Uqz/ddN9r6gva/y4X1i5dcpspvQ8BwlwjQ==
   dependencies:
     "@amanda-mitchell/semantic-release-npm-multiple" "^3.11.0"
     "@commitlint/cli" "^19.0.0"
@@ -26,7 +26,7 @@
     pkg-dir "^8.0.0"
     prettier "3.5.3"
     semantic-release "^24.2.0"
-    ts-jest "29.3.3"
+    ts-jest "29.3.4"
     typescript "5.8.3"
 
 "@amanda-mitchell/semantic-release-npm-multiple@^3.11.0":
@@ -7696,10 +7696,10 @@ treeverse@^3.0.0:
   resolved "https://registry.yarnpkg.com/treeverse/-/treeverse-3.0.0.tgz#dd82de9eb602115c6ebd77a574aae67003cb48c8"
   integrity sha512-gcANaAnd2QDZFmHFEOF4k7uc1J/6a6z3DJMd/QwEyxLoKGiptJRwid582r7QIsFlFMIZ3SnxfS52S4hm2DHkuQ==
 
-ts-jest@29.3.3:
-  version "29.3.3"
-  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.3.3.tgz#c24c31a9d12268f88899e3eeb05912cab42c574c"
-  integrity sha512-y6jLm19SL4GroiBmHwFK4dSHUfDNmOrJbRfp6QmDIlI9p5tT5Q8ItccB4pTIslCIqOZuQnBwpTR0bQ5eUMYwkw==
+ts-jest@29.3.4:
+  version "29.3.4"
+  resolved "https://registry.yarnpkg.com/ts-jest/-/ts-jest-29.3.4.tgz#9354472aceae1d3867a80e8e02014ea5901aee41"
+  integrity sha512-Iqbrm8IXOmV+ggWHOTEbjwyCf2xZlUMv5npExksXohL+tk8va4Fjhb+X2+Rt9NBmgO7bJ8WpnMLOwih/DnMlFA==
   dependencies:
     bs-logger "^0.2.6"
     ejs "^3.1.10"
