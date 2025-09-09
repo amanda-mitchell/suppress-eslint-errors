@@ -272,14 +272,7 @@
     chalk "^2.0.0"
     js-tokens "^4.0.0"
 
-"@babel/parser@^7.1.0", "@babel/parser@^7.12.7", "@babel/parser@^7.14.7", "@babel/parser@^7.24.7", "@babel/parser@^7.25.9", "@babel/parser@^7.26.0", "@babel/parser@^7.26.2":
-  version "7.26.2"
-  resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.26.2.tgz#fd7b6f487cfea09889557ef5d4eeb9ff9a5abd11"
-  integrity sha512-DWMCZH9WA4Maitz2q21SRKHo9QXZxkDsbNZoVD62gusNtNBBqDg9i7uOhASfTfIGNzW+O+r7+jAlM8dwphcJKQ==
-  dependencies:
-    "@babel/types" "^7.26.0"
-
-"@babel/parser@^7.26.9":
+"@babel/parser@^7.1.0", "@babel/parser@^7.12.7", "@babel/parser@^7.14.7", "@babel/parser@^7.24.7", "@babel/parser@^7.25.9", "@babel/parser@^7.26.0", "@babel/parser@^7.26.2", "@babel/parser@^7.26.9":
   version "7.26.10"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.26.10.tgz#e9bdb82f14b97df6569b0b038edd436839c57749"
   integrity sha512-6aQR2zGE/QFi8JpDLjUZEPYOs7+mhKXm86VaKFiLP35JQwQb6bwUE+XbvkH0EptsYhbNBSUGaUBLKqxH1xSgsA==
@@ -5516,9 +5509,9 @@ jsbn@1.1.0:
   integrity sha512-4bYVV3aAMtDTTu4+xsDYa6sy9GyJ69/amsu9sYF2zqjiEoZA5xJi3BrfX3uY+/IekIu7MwdObdbDWpoZdBv3/A==
 
 jscodeshift@^17.1.1:
-  version "17.1.2"
-  resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-17.1.2.tgz#d77e9d3d08fdbb1548818bc22f653aba7fc21a25"
-  integrity sha512-uime4vFOiZ1o3ICT4Sm/AbItHEVw2oCxQ3a0egYVy3JMMOctxe07H3SKL1v175YqjMt27jn1N+3+Bj9SKDNgdQ==
+  version "17.3.0"
+  resolved "https://registry.yarnpkg.com/jscodeshift/-/jscodeshift-17.3.0.tgz#b9ea1d8d1c9255103bfc4cb42ddb46e18cb2415c"
+  integrity sha512-LjFrGOIORqXBU+jwfC9nbkjmQfFldtMIoS6d9z2LG/lkmyNXsJAySPT+2SWXJEoE68/bCWcxKpXH37npftgmow==
   dependencies:
     "@babel/core" "^7.24.7"
     "@babel/parser" "^7.24.7"
@@ -5535,7 +5528,7 @@ jscodeshift@^17.1.1:
     micromatch "^4.0.7"
     neo-async "^2.5.0"
     picocolors "^1.0.1"
-    recast "^0.23.9"
+    recast "^0.23.11"
     tmp "^0.2.3"
     write-file-atomic "^5.0.1"
 
@@ -7221,10 +7214,10 @@ readable-stream@^2.0.0, readable-stream@^2.0.2, readable-stream@~2.3.6:
     string_decoder "~1.1.1"
     util-deprecate "~1.0.1"
 
-recast@^0.23.9:
-  version "0.23.9"
-  resolved "https://registry.yarnpkg.com/recast/-/recast-0.23.9.tgz#587c5d3a77c2cfcb0c18ccce6da4361528c2587b"
-  integrity sha512-Hx/BGIbwj+Des3+xy5uAtAbdCyqK9y9wbBcDFDYanLS9JnMqf7OeF87HQwUimE87OEc72mr6tkKUKMBBL+hF9Q==
+recast@^0.23.11:
+  version "0.23.11"
+  resolved "https://registry.yarnpkg.com/recast/-/recast-0.23.11.tgz#8885570bb28cf773ba1dc600da7f502f7883f73f"
+  integrity sha512-YTUo+Flmw4ZXiWfQKGcwwc11KnoRAYgzAE2E7mXKCjSviTKShtxBsN6YUUBB2gtaBzKzeKunxhUwNHQuRryhWA==
   dependencies:
     ast-types "^0.16.1"
     esprima "~4.0.0"
