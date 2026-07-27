@@ -25,7 +25,7 @@
     "access": "public"
   },
   "dependencies": {
-    "chalk": "^5.0.0",
+    "chalk": "^6.0.0",
     "cross-spawn": "^7.0.3",
     "jscodeshift": "^17.1.1",
     "please-upgrade-node": "^3.1.1"
